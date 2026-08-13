@@ -484,37 +484,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red_Agent
       objectReference: {fileID: 0}
+    - target: {fileID: 4933627425090356277, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
+      propertyPath: _objetive
+      value: 
+      objectReference: {fileID: 7851300178695325696}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4845918830601294948, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1381017285217233030}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
---- !u!1 &1381017285217233029 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4845918830601294948, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
-  m_PrefabInstance: {fileID: 1381017285217233028}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1381017285217233030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381017285217233029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5233d84a528986f49b567b4af80d5bf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ArriveEscape
-  _objetive: {fileID: 7851300178695325696}
-  _maxSpeed: 5
-  _steeringSpeed: 3
-  _maxDistance: 30
-  _minDistance: 3
-  _arriveOrScape: 0
 --- !u!1001 &7851300178695325695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -526,6 +504,14 @@ PrefabInstance:
     - target: {fileID: 1352518338143282111, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
       propertyPath: m_Name
       value: Green_Agent
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410180234392730061, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410180234392730061, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9103733391103472131, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
       propertyPath: m_LocalPosition.x

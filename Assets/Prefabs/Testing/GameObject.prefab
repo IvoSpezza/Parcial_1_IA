@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3272233928029248074}
   - component: {fileID: 8495676420314174508}
+  - component: {fileID: 4933627425090356277}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -40,7 +41,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4845918830601294948}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de42c0de9bcb15547acdf53d02d52c7d, type: 3}
   m_Name: 
@@ -48,6 +49,25 @@ MonoBehaviour:
   _objetive: {fileID: 0}
   _maxSpeed: 5
   _steeringSpeed: 3
+  _fleeOrSeek: 0
+--- !u!114 &4933627425090356277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4845918830601294948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5233d84a528986f49b567b4af80d5bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArriveEscape
+  _objetive: {fileID: 0}
+  _maxSpeed: 5
+  _steeringSpeed: 3
+  _maxDistance: 30
+  _minDistance: 3
+  _arriveOrScape: 0
 --- !u!1001 &7405072637949314547
 PrefabInstance:
   m_ObjectHideFlags: 0

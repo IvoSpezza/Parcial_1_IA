@@ -8,7 +8,7 @@ public class WASDmovement : MonoBehaviour
 
     void Update()
     {
-       
+        Debug.Log(_movement);
     }
 
     public void OnMove(InputAction.CallbackContext context)

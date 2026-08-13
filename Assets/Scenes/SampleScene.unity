@@ -455,6 +455,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+--- !u!4 &1203106424 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9103733391103472131, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
+  m_PrefabInstance: {fileID: 7851300178695325695}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> main
 --- !u!1001 &1381017285217233028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -507,6 +517,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red_Agent
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 4933627425090356277, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _objetive
       value: 
@@ -515,6 +526,23 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
+=======
+    - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
+      propertyPath: _objetive
+      value: 
+      objectReference: {fileID: 1203106424}
+    - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4845918830601294948, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 264006113}
+>>>>>>> main
   m_SourcePrefab: {fileID: 100100000, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
 --- !u!1001 &7851300178695325695
 PrefabInstance:
@@ -528,6 +556,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Green_Agent
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 7410180234392730061, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
       propertyPath: m_DefaultActionMap
       value: Player
@@ -536,6 +565,8 @@ PrefabInstance:
       propertyPath: m_DefaultControlScheme
       value: 
       objectReference: {fileID: 0}
+=======
+>>>>>>> main
     - target: {fileID: 9103733391103472131, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.33354
@@ -581,11 +612,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
+<<<<<<< HEAD
 --- !u!4 &7851300178695325696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9103733391103472131, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
   m_PrefabInstance: {fileID: 7851300178695325695}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> Stashed changes
+>>>>>>> main
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

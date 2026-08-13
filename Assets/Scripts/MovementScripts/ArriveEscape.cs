@@ -66,7 +66,7 @@ public class ArriveEscape : MonoBehaviour
             actualVelocity = Vector3.zero;
             return;
         }
-        Debug.Log(distance);
+        
         float slowSpeed = _maxSpeed * (_minDistance / distance);
 
         float desiredSpeed = Mathf.Min(slowSpeed, _maxSpeed);

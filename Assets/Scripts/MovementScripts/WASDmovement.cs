@@ -3,17 +3,19 @@ using UnityEngine.InputSystem;
 
 public class WASDmovement : MonoBehaviour
 {
-    private Vector2 _movement;
+    [SerializeField] private float _maxSpeed = 5;
+    private Vector3 _velocity;
+
    
 
     void Update()
     {
-        Debug.Log(_movement);
+        transform.position += _velocity * Time.deltaTime;
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputValue value)
     {
-        
-        _movement = context.ReadValue<Vector2>();
+        Vector2 movement = value.Get<Vector2>();
+        _velocity = new Vector3(movement.x,0,movement.y) * _maxSpeed;
     }
 }

@@ -6,7 +6,7 @@ public class WASDmovement : MonoBehaviour
     [SerializeField] private float _maxSpeed = 5;
     private Vector3 _velocity;
 
-   
+
 
     void Update()
     {
@@ -16,6 +16,6 @@ public class WASDmovement : MonoBehaviour
     public void OnMove(InputValue value)
     {
         Vector2 movement = value.Get<Vector2>();
-        _velocity = new Vector3(movement.x,0,movement.y) * _maxSpeed;
+        _velocity = new Vector3(movement.x, 0, movement.y) * _maxSpeed;
     }
 }

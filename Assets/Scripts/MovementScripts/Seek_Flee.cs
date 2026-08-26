@@ -1,4 +1,4 @@
-using System;
+
 using UnityEngine;
 
 public class Seek_Flee : Agent
@@ -11,14 +11,26 @@ public class Seek_Flee : Agent
     [SerializeField] private float _maxDistance = 10;
     [SerializeField] private float _minDistance = 0.1f;
 
-    public enum Movement { Flee,Seek,Arrive,Escape,Pursuit,Evade}
+    public enum Movement { Flee,Seek,Arrive,Escape,Pursuit,Evade, Flocking}
     [SerializeField] private Movement _movement;
+
+    [SerializeField, Range(0f, 3f)]private float _cohesionWeigth = 1f;
+    [SerializeField, Range(0f, 3f)]private float _aligmentWeigth = 1f;
+    [SerializeField, Range(0f, 3f)] private float _separationWeigth = 1f;
+
+
+    private void Awake()
+    {
+        Vector3 randomDirection = new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1));
+        _actualVelocity = randomDirection.normalized * _maxSpeed;
+    }
 
     void Update()
     {
-        MovementTipe();
+        //MovementTipe();
         transform.position += _actualVelocity * Time.deltaTime;
         transform.forward = _actualVelocity;
+        transform.position = Bounds.instance.OutOfBounds(transform.position);
     }
 
     private void MovementTipe()
@@ -43,6 +55,9 @@ public class Seek_Flee : Agent
             case Movement.Evade:
                 Evade(_objetive);
                 break;
+            case Movement.Flocking:
+                Flocking();
+                break;
         }
                 
     }
@@ -57,7 +72,9 @@ public class Seek_Flee : Agent
     private Vector3 CalculateSteering(Vector3 desired)
     {
         desired *= _maxSpeed;
+
         Vector3 steering = desired - _actualVelocity;
+
         return Vector3.ClampMagnitude(steering, _steeringSpeed * Time.deltaTime);
     }
 
@@ -68,10 +85,11 @@ public class Seek_Flee : Agent
         _actualVelocity += CalculateSteering(desired);
     }
 
+    //Dado un objetivo, escapamos directamente de el
     public void Flee(Vector3 target)
     {
         Vector3 desired = CalculateDesired(target);
-        _actualVelocity -= CalculateSteering(-desired);
+        _actualVelocity += CalculateSteering(-desired);
     }
 
     public void Arrive(Vector3 target)
@@ -91,9 +109,7 @@ public class Seek_Flee : Agent
 
         Vector3 desired = direction.normalized * desiredSpeed;
 
-        Vector3 Steering = desired - _actualVelocity;
-
-        Steering = Vector3.ClampMagnitude(Steering, _steeringSpeed * Time.deltaTime);
+        Vector3 Steering = CalculateSteering(desired);
 
         _actualVelocity += Steering;
     }
@@ -117,10 +133,7 @@ public class Seek_Flee : Agent
 
         Vector3 desired = direction.normalized * desiredSpeed * -1;
 
-        Vector3 Steering = desired - _actualVelocity;
-
-        Steering = Vector3.ClampMagnitude(Steering, _steeringSpeed * Time.deltaTime);
-
+        Vector3 Steering = CalculateSteering(desired);
         _actualVelocity += Steering;
     }
 
@@ -133,7 +146,7 @@ public class Seek_Flee : Agent
 
         float prediction = distance / (_maxSpeed + target._actualVelocity.magnitude);
 
-        return target.transform.position + target._actualVelocity* prediction;
+        return target.transform.position + target._actualVelocity * prediction;
 
     }
     public void Pursuit(Agent target)
@@ -150,4 +163,29 @@ public class Seek_Flee : Agent
 
         Flee(futurePosition);
     }
-}
+
+    private Vector3 CalculateSeparation()
+    {
+        Vector3 dessired = Vector3.zero;
+        return CalculateSteering(dessired);
+    }
+
+    private Vector3 CalculateAlignment()
+    {
+        return Vector3.zero;
+    }
+
+    private Vector3 CalculateCohesion()
+    {
+        return Vector3.zero;
+    }
+
+    private void Flocking()
+    {
+        _actualVelocity += CalculateSeparation() + CalculateAlignment() + CalculateCohesion();
+    }
+
+   
+   
+}  
+   

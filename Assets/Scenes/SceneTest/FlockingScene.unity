@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -278,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -294,7 +294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -306,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -375,7 +375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -391,7 +391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -403,7 +403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -472,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -488,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -500,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -569,7 +569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -585,7 +585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -597,7 +597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -803,7 +803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -819,7 +819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -831,7 +831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -900,7 +900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -916,7 +916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -928,7 +928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -997,7 +997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1013,7 +1013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1025,7 +1025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1094,7 +1094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1110,7 +1110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1122,7 +1122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1191,7 +1191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1207,7 +1207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1219,7 +1219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1288,7 +1288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1304,7 +1304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1316,7 +1316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1385,7 +1385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1401,7 +1401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1413,7 +1413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1482,7 +1482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1498,7 +1498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1510,7 +1510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1579,7 +1579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1595,7 +1595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1607,7 +1607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1676,7 +1676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1692,7 +1692,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1704,7 +1704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1773,7 +1773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1789,7 +1789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1801,7 +1801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1870,7 +1870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -1886,7 +1886,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -1898,7 +1898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2094,7 +2094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -2110,7 +2110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -2122,7 +2122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2191,7 +2191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -2207,7 +2207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -2219,7 +2219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2335,7 +2335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
@@ -2351,7 +2351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _aligmentWeigth
@@ -2363,7 +2363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _separationWeigth
-      value: 2
+      value: 3.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

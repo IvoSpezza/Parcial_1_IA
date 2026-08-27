@@ -2,7 +2,7 @@ using NUnit.Framework.Internal.Commands;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Seek_Flee : Agent
+public class AgentBehabiur : Agent
 {
     //Temp
     [SerializeField] private Agent _objetive;
@@ -27,7 +27,7 @@ public class Seek_Flee : Agent
 
     [SerializeField, Range(0f, 2f)]private float _cohesionWeigth = 1f;
     [SerializeField, Range(0f, 2f)]private float _aligmentWeigth = 1f;
-    [SerializeField, Range(0f, 2f)] private float _separationWeigth = 1f;
+    [SerializeField, Range(0f, 4f)] private float _separationWeigth = 1f;
 
     [SerializeField, Range(0f, 1f)] private float _randomFactor = 0f;
 
@@ -203,21 +203,19 @@ public class Seek_Flee : Agent
             return dessired;
         }
 
-        int count = 0;
-
         foreach (Agent agent in _agents)
         {
-
             if (Vector3.Distance(agent.transform.position,transform.position) <= _minDistance)
             {
-                count++;
-                dessired += agent.transform.position - transform.position;
+                dessired += transform.position - agent.transform.position;
             }
         }
-
-        dessired /= count;
         dessired.y = 0;
-        return CalculateSteering(-dessired.normalized);
+        if (dessired.sqrMagnitude < 0.001f)
+        {
+            return Vector3.zero;
+        }
+        return CalculateSteering(dessired.normalized);
     }
 
     private Vector3 CalculateAlignment()
@@ -233,6 +231,10 @@ public class Seek_Flee : Agent
         }
         dessired /= _agents.Count;
         dessired.y = 0;
+        if (dessired.sqrMagnitude < 0.001f)
+        {
+            return Vector3.zero;
+        }
         return CalculateSteering(dessired.normalized);
     }
 
@@ -252,6 +254,10 @@ public class Seek_Flee : Agent
 
         dessired -= transform.position;
         dessired.y = 0;
+        if (dessired.sqrMagnitude < 0.001f)
+        {
+            return Vector3.zero;
+        }
         return CalculateSteering(dessired.normalized);
     }
 

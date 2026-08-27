@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal.Commands;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,11 +25,11 @@ public class Seek_Flee : Agent
 
     private SphereCollider _sphereCollider;
 
-    [SerializeField, Range(0f, 3f)]private float _cohesionWeigth = 1f;
-    [SerializeField, Range(0f, 3f)]private float _aligmentWeigth = 1f;
-    [SerializeField, Range(0f, 3f)] private float _separationWeigth = 1f;
+    [SerializeField, Range(0f, 2f)]private float _cohesionWeigth = 1f;
+    [SerializeField, Range(0f, 2f)]private float _aligmentWeigth = 1f;
+    [SerializeField, Range(0f, 2f)] private float _separationWeigth = 1f;
 
-    [SerializeField, Range(0f, 3f)] private float _randomFactor = 0f;
+    [SerializeField, Range(0f, 1f)] private float _randomFactor = 0f;
 
 
     private void Awake()
@@ -44,16 +45,14 @@ public class Seek_Flee : Agent
     {
         if (_movement == Movement.Flocking)
         {
-            _minDistance = _sphereCollider.radius / 3;
+            _minDistance = _sphereCollider.radius / 1.5f;
+            Debug.Log(_minDistance);
         }
-        _maxSpeed += Random.Range(-_randomFactor, _randomFactor);
-        _steeringSpeed += Random.Range(-_randomFactor, _randomFactor);
-        _minDistance += Random.Range(-_randomFactor, _randomFactor);
     }
 
     private void RandomMovement()
     {
-        Vector3 randomDirection = new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1));
+        Vector3 randomDirection = new Vector3( Random.Range(-1, 1), 0f, Random.Range(-1, 1));
         _actualVelocity = randomDirection.normalized * _maxSpeed;
     }
 
@@ -61,8 +60,8 @@ public class Seek_Flee : Agent
     {
         MovementTipe();
         transform.position += _actualVelocity * Time.deltaTime;
-        transform.forward = _actualVelocity;
         transform.position = Bounds.instance.OutOfBounds(transform.position);
+        transform.forward = _actualVelocity;
     }
 
     private void MovementTipe()
@@ -198,63 +197,89 @@ public class Seek_Flee : Agent
 
     private Vector3 CalculateSeparation()
     {
-        Vector3 dessired = Vector3.zero;
-
-        foreach(Agent agent in _agents)
+        Vector3 dessired = default;
+        if (_agents.Count == 0)
         {
-            if ((agent.transform.position - transform.position).magnitude <= _minDistance)
+            return dessired;
+        }
+
+        int count = 0;
+
+        foreach (Agent agent in _agents)
+        {
+
+            if (Vector3.Distance(agent.transform.position,transform.position) <= _minDistance)
             {
-                dessired += CalculateDirection(agent.transform.position);
+                count++;
+                dessired += agent.transform.position - transform.position;
             }
         }
+
+        dessired /= count;
         dessired.y = 0;
-        return CalculateSteering(-dessired);
+        return CalculateSteering(-dessired.normalized);
     }
 
     private Vector3 CalculateAlignment()
     {
-        Vector3 dessired = Vector3.zero;
-
+        Vector3 dessired = default;
+        if (_agents.Count == 0)
+        {
+            return dessired;
+        }
         foreach (Agent agent in _agents)
         {
-            dessired += agent._actualVelocity.normalized;
+            dessired += agent._actualVelocity;
         }
+        dessired /= _agents.Count;
         dessired.y = 0;
         return CalculateSteering(dessired.normalized);
     }
 
     private Vector3 CalculateCohesion()
     {
-        Vector3 dessired = Vector3.zero;
-
+        Vector3 dessired = default;
+        if(_agents.Count == 0)
+        {
+            return dessired;
+        }
         foreach (Agent agent in _agents)
         {
-            dessired += CalculateDirection(agent.transform.position);
+            dessired += agent.transform.position;
         }
 
+        dessired /= _agents.Count;
+
+        dessired -= transform.position;
         dessired.y = 0;
         return CalculateSteering(dessired.normalized);
     }
 
     private void Flocking()
     {
-        _actualVelocity += (CalculateSeparation()* _separationWeigth) + (CalculateAlignment()* _aligmentWeigth) + (CalculateCohesion()* _cohesionWeigth);
+        Vector3 separation = CalculateSeparation() * _separationWeigth;
+        Vector3 alignment = CalculateAlignment() * _aligmentWeigth;
+        Vector3 cohesion = CalculateCohesion() * _cohesionWeigth;
+
+        _actualVelocity += separation + alignment + cohesion;
+      
+        Debug.DrawRay(transform.position, _actualVelocity, Color.white);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent<Agent>(out Agent agenteEnRango))
-        {
+        if(other.TryGetComponent<Agent>(out Agent agenteEnRango))
+        {            
             _agents.Add(agenteEnRango);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.TryGetComponent<Agent>(out Agent agenteEnRango))
+        if (other.TryGetComponent<Agent>(out Agent agenteEnRango))
         {
-            _agents.Add(agenteEnRango);
-            Debug.Log(_agents.Count);
+            _agents.Remove(agenteEnRango);
+           
         }
     }
 

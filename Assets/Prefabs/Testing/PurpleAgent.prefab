@@ -45,13 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ad3aa59b0f47046b16348806bd4e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveBeteenPoints
-  _actualVelocity: {x: 0, y: 0, z: 0}
-  _maxSpeed: 6
+  _patrolStyle: 0
+  _maxSpeed: 22
   _points:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _wayPointRange: 0.1
 --- !u!1001 &6170834769905563867
 PrefabInstance:
   m_ObjectHideFlags: 0

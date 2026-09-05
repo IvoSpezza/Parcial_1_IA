@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class Agent : MonoBehaviour
+public abstract class Agent : MonoBehaviour
 {
-    public Vector3 _actualVelocity;
+    public Vector3 _actualVelocity { get; protected set; }
 
 }

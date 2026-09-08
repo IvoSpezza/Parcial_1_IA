@@ -29,8 +29,6 @@ public class AgentBehabiur : Agent
     [SerializeField, Range(0f, 2f)]private float _aligmentWeigth = 1f;
     [SerializeField, Range(0f, 4f)] private float _separationWeigth = 1f;
 
-    [SerializeField, Range(0f, 1f)] private float _randomFactor = 0f;
-
 
     private void Awake()
     {
@@ -93,7 +91,8 @@ public class AgentBehabiur : Agent
                 
     }
     //Dado un objetivo, retorna el vector de velocidad deseado que apunta hacia el 
-    private Vector3 CalculateDirection(Vector3 target)
+
+    protected Vector3 CalculateDirection(Vector3 target)
     {
         Vector3 direction = (target - transform.position).normalized;
         return direction;

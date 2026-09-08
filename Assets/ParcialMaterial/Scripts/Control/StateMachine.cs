@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class StateMachine
 {
-    private State _currentState;
+    private CreatureState _currentState;
 
-    private Dictionary<Enum, State> _states;
+    private Dictionary<Enum, CreatureState> _states;
     public StateMachine()
     {
-
+        _states = new Dictionary<Enum, CreatureState>();
     }
 
     public void MachineUpdate()
     {
         _currentState.Update();
     }
-    public void AddState(State state, Enum key)
+    public void AddState(CreatureState state, Enum key)
     {
         _states.Add(key, state);
     }

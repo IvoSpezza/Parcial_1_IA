@@ -12,6 +12,11 @@ public class Boid_AnimationController : MonoBehaviour
         _me.OnChangeState += SetAnimation;
     }
 
+    private void OnDisable()
+    {
+        _me.OnChangeState -= SetAnimation;
+    }
+
     private void  SetAnimation(BoidState state)
     {
         Debug.Log("CAMBIOESTADO");

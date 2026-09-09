@@ -23,5 +23,4 @@ public class MS_Creature : MonoBehaviour
         return Vector3.ClampMagnitude(steering, _steering * Time.deltaTime);
     }
 
-    
 }

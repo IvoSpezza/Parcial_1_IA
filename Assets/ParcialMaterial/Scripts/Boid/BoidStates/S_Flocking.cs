@@ -18,51 +18,18 @@ public class S_Flocking : CreatureState
 
     public override void Enter()
     {
-        RandomMovement();
-        _me.AnimationHasToChange(BoidState.Flocking);
+  
     }
 
     public override void Update()
     {
         Flocking();
-        _me.transform.position += _velocity * Time.deltaTime;
-        _me.transform.forward = _velocity;
-        _me.SetVelocity(_velocity);
     }
 
     public override void Exit()
     {
         
-    }
-
-    private void RandomMovement()
-    {
-        Vector3 randomDirection = new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1));
-        _velocity = randomDirection.normalized * _maxSpeed;
-    }
-
-    private Vector3 CalculateSeparation()
-    {
-        Vector3 dessired = default;
-        if (_agents.Count == 0)
-        {
-            return dessired;
-        }
-
-        foreach (MS_BoidControlScript agent in _agents)
-        {
-            if (Vector3.Distance(agent.transform.position, _me.transform.position) <= _flockingData._minEvadeDistance)
-            {
-                dessired += _me.transform.position - agent.transform.position;
-            }
-        }
-        dessired.y = 0;
-        if (dessired.sqrMagnitude < 0.001f)
-        {
-            return Vector3.zero;
-        }
-        return CalculateSteering(dessired.normalized, _steering);
-    }
+    }    
 
     private Vector3 CalculateAlignment()
     {
@@ -112,11 +79,10 @@ public class S_Flocking : CreatureState
 
         Vector3 aligment = CalculateAlignment() * _flockingData._aligmentWeight; 
         Vector3 cohesion = CalculateCohesion() * _flockingData._cohesionWeight;
-        Vector3 separation = CalculateSeparation() * _flockingData._separationWeight;
 
-        Vector3 movement = aligment + cohesion + separation;
+        Vector3 movement = aligment + cohesion;
 
-        _velocity += movement;
+        _me.AplyVelocity(movement);
     }
 
 
@@ -127,7 +93,7 @@ public class S_Flocking : CreatureState
 [System.Serializable]
 public class FlockingData
 {
-    [SerializeField, Range(0,2)] public float _separationWeight;
+    [SerializeField, Range(0, 6)] public float _separationWeight;
     [SerializeField, Range(0, 2)] public float _cohesionWeight ;
     [SerializeField, Range(0, 2)] public float _aligmentWeight ;
     public float _minEvadeDistance;

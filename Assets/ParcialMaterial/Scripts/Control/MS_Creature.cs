@@ -23,5 +23,18 @@ public class MS_Creature : MonoBehaviour
         return Vector3.ClampMagnitude(steering, _steering * Time.deltaTime);
     }
 
-    
+    public Vector3 CalculateSteering(Vector3 desired, float otherSpeed)
+    {
+        desired *= otherSpeed;
+
+        Vector3 steering = desired - _velocity;
+
+        return Vector3.ClampMagnitude(steering, _steering * Time.deltaTime);
+    }
+
+    public void AplyVelocity(Vector3 velocity)
+    {
+        _velocity += velocity;
+    }
+
 }

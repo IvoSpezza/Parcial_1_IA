@@ -7,6 +7,8 @@ public class StateMachine
     private CreatureState _currentState;
 
     private Dictionary<Enum, CreatureState> _states;
+
+    public event Action<Enum> OnStateChanged;
     public StateMachine()
     {
         _states = new Dictionary<Enum, CreatureState>();
@@ -22,6 +24,7 @@ public class StateMachine
     }
     public void ChangeState(Enum key)
     {
+        OnStateChanged?.Invoke(key);
         _currentState?.Exit();
         _currentState = _states[key];
         _currentState.Enter();

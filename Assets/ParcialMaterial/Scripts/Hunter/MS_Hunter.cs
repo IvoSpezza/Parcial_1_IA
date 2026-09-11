@@ -16,9 +16,11 @@ public class MS_Hunter : MS_Creature
     private bool _preysToAtack;
     
     private SphereCollider _viewDistance;
-
+    
     private void Awake()
     {
+        Animator animation = GetComponent<Animator>();
+
         _timeToAtack = false;
 
         _viewDistance = GetComponent<SphereCollider>();
@@ -30,7 +32,7 @@ public class MS_Hunter : MS_Creature
         patrolState.CanAtack += CanAtack;
         _hunterMachine.AddState(patrolState, HunterStates.Patrol);
 
-        S_Atack atacState = new S_Atack(_posiblePreys, _atack,this);
+        S_Atack atacState = new S_Atack(_posiblePreys, _atack,this,animation);
         atacState.OnAtackCreature += AtackEnded;
         _hunterMachine.AddState(atacState, HunterStates.Hunt);
 
@@ -114,5 +116,6 @@ public enum HunterStates
 {
     Patrol,
     Recolect,
-    Hunt
+    Hunt,
+    Atack
 }

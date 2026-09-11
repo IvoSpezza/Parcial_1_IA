@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 21293434369792149}
   - component: {fileID: 8234203513221494781}
   - component: {fileID: 6626592075951851933}
+  - component: {fileID: 4124239167030910846}
   m_Layer: 0
   m_Name: Hunter
   m_TagString: Untagged
@@ -91,10 +92,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MS_Hunter
   _maxSpeed: 25
-  _steering: 8
+  _steering: 16
   _tba: 8
-  _rar: 20
-  _mar: 8
+  _rangeOfDetection: 15
+  _patrol:
+    _pathPoints:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    _minRangeToChange: 0.1
+    _patrolSpeed: 10
+  _atack:
+    _mPr: 16
+    _mad: 3
+    _ract: 1
+    _rad: 25
+--- !u!114 &4124239167030910846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192455753171988928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6448718d6b848db4a969e39ad3167270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hunte_AnimationController
 --- !u!1 &7413441545969551268
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class S_Atack : CreatureState
@@ -14,11 +15,12 @@ public class S_Atack : CreatureState
 
     public event Action<AtackTipe> OnAtackCreature;
 
-    public S_Atack(List<MS_BoidControlScript> boidsInRange, AtackDatta atackData, MS_Hunter me)
+    public S_Atack(List<MS_BoidControlScript> boidsInRange, AtackDatta atackData, MS_Hunter me, Animator animator)
     {
         _boidsInRange = boidsInRange;
         _atackData = atackData;
         _me = me;
+        _animator = animator;
     }
 
     public override void Enter()
@@ -33,6 +35,7 @@ public class S_Atack : CreatureState
         {
             OnAtackCreature?.Invoke(AtackTipe.Fail);
             _myPrey = null;
+            _animator.SetBool("Aim", false);
             return;
         }
 
@@ -75,6 +78,7 @@ public class S_Atack : CreatureState
     }
     private void KillitMelee() 
     {
+        _animator.SetBool("Aim", false);
         Pursuit(_myPrey);        
         _me.transform.position += _me._velocity * Time.deltaTime;
         _me.transform.forward = _myPrey.transform.position - _me.transform.position;
@@ -89,13 +93,14 @@ public class S_Atack : CreatureState
 
         if (distanceToPrey <= _atackData._mad)
         {
-            Debug.Log("DieMelee");
-            Atack(AtackTipe.Melee);
+            _animator.SetTrigger("Melee");
+            Atack(AtackTipe.Succes);
         }
     }
 
     private void KillItRanged()
     {
+        _animator.SetBool("Aim", true);
         _me.AplyVelocity(-_me._velocity);
         _me.transform.forward = _myPrey.transform.position - _me.transform.position;
         _rangedCharge += Time.deltaTime;
@@ -111,8 +116,9 @@ public class S_Atack : CreatureState
 
         if(_rangedCharge >= _atackData._ract)
         {
-            Debug.Log("DieRanged");
-            Atack(AtackTipe.Ranged);
+            _animator.SetTrigger("Shoot");
+            _animator.SetBool("Aim", false);
+            Atack(AtackTipe.Succes);
         }
     }
     public void Seek(Vector3 target)
@@ -156,7 +162,6 @@ public class AtackDatta
 
 public enum AtackTipe
 {
-    Melee,
-    Ranged,
+    Succes,
     Fail
 }

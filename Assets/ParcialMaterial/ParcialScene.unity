@@ -1685,44 +1685,8 @@ PrefabInstance:
       value: Hunter
       objectReference: {fileID: 0}
     - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _steering
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _atack._mPr
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _atack._mad
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _atack._rad
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: _atack._ract
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _rangeOfVision
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _rangeOfDetection
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _patrol._patrolSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _patrol._minRangeToChange
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _patrol._pathPoints.Array.size
-      value: 5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: '_patrol._pathPoints.Array.data[0]'
@@ -1744,30 +1708,6 @@ PrefabInstance:
       propertyPath: '_patrol._pathPoints.Array.data[4]'
       value: 
       objectReference: {fileID: 1363285866}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: '_patrol._pathPoints.Array.data[5]'
-      value: 
-      objectReference: {fileID: 1363285866}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: '_patrol._pathPoints.Array.data[6]'
-      value: 
-      objectReference: {fileID: 1745428002}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: '_patrol._pathPoints.Array.data[7]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: '_patrol._pathPoints.Array.data[8]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: '_patrol._pathPoints.Array.data[9]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: '_patrol._pathPoints.Array.data[10]'
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

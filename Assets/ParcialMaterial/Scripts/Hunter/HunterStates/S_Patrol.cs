@@ -21,7 +21,7 @@ public class S_Patrol : CreatureState
         _data = data;
         _me = me;
         _tba = tba;
-        _actualPoint = _data._pathPoints.Count / 2;
+        _actualPoint =Random.Range(0,_data._pathPoints.Count);
 
     }
 
@@ -71,7 +71,9 @@ public class S_Patrol : CreatureState
 
             if (!_loopCompleted)
             {
-                _actualPoint += _orientation;
+                _actualPoint += _orientation;                
+            } else
+            {
                 _loopCompleted = false;
             }
                 

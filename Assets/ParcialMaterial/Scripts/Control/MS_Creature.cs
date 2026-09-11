@@ -32,8 +32,21 @@ public class MS_Creature : MonoBehaviour
         return Vector3.ClampMagnitude(steering, _steering * Time.deltaTime);
     }
 
+    public Vector3 CalculateFuture(MS_Creature target)
+    {
+        Vector3 direction = target.transform.position - transform.position;
+
+        float distance = direction.magnitude;
+
+        float prediction = distance / (_maxSpeed + target._velocity.magnitude);
+
+        return target.transform.position + target._velocity * prediction;
+
+    }
+
     public void AplyVelocity(Vector3 velocity)
     {
+        velocity.y = 0;
         _velocity += velocity;
     }
 

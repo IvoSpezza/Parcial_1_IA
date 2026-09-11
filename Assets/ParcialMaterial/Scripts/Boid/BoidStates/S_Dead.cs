@@ -11,11 +11,11 @@ public class S_Dead : CreatureState
     }
     public override void Enter()
     {
-        _me.AplyVelocity(-_me._velocity);
+        
     }
     public override void Update()
     {
-        _me.AplyVelocity(-_me._velocity);
+        
     }
     public override void Exit()
     {

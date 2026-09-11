@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class MS_BoidControlScript : MS_Creature
 {
-    [SerializeField] private float _maxSeeDistance;
-    
+    [SerializeField] private float _minSpeed;
+
+    [SerializeField] private float _maxSeeDistance;    
     [SerializeField] private FlockingData _dataForFlocking;
 
     public StateMachine _machine {  get; private set; }
@@ -45,19 +46,32 @@ public class MS_BoidControlScript : MS_Creature
 
     private void Update()
     {
+        _machine.MachineUpdate();
         if (_isAlive)
         {
             _velocity += CalculateSeparation() * _dataForFlocking._separationWeight;
+
+            SetMinSpeed();
+
             transform.position += _velocity * Time.deltaTime;
             transform.forward = _velocity;
-            transform.position = Bounds.instance.OutOfBounds(transform.position);
+            transform.position = Bounds.instance.OutOfBounds(transform.position);                  
+        }                      
+        
+    }
+
+    private void SetMinSpeed()
+    {
+        if (_velocity.sqrMagnitude <= (_minSpeed * _minSpeed))
+        {
+            Vector3 fallbackDirection = transform.forward;
+            _velocity = fallbackDirection * _maxSpeed;
         }
-        _machine.MachineUpdate();        
-                
     }
     
     private void OnTriggerEnter(Collider other)
     {
+        if (!_isAlive) return;
         if (other.gameObject.TryGetComponent<MS_Hunter>(out MS_Hunter enemy))
         {
             _enemy = enemy;
@@ -66,7 +80,8 @@ public class MS_BoidControlScript : MS_Creature
 
         if (other.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript anotherAgent))
         {
-          
+
+            if (!anotherAgent._isAlive) return;
             _agents.Add(anotherAgent);
             
         }
@@ -74,16 +89,17 @@ public class MS_BoidControlScript : MS_Creature
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.TryGetComponent<MS_Hunter>(out MS_Hunter enemy) && _isAlive)
+        if (!_isAlive) return;
+        if (other.gameObject.TryGetComponent<MS_Hunter>(out MS_Hunter enemy) )
         {
             _enemy = null;
             _machine.ChangeState(BoidState.Flocking);
         }
 
-        if (other.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript anotherAgent) && _isAlive)
+        if (other.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript anotherAgent) )
         {
-            _agents.Remove(anotherAgent);
-            
+            if (!anotherAgent._isAlive) return;
+            _agents.Remove(anotherAgent);            
         }
     }
 
@@ -110,15 +126,18 @@ public class MS_BoidControlScript : MS_Creature
             }
         }
         dessired.y = 0;
+        
         if (dessired.sqrMagnitude < 0.001f)
         {
             return Vector3.zero;
         }
+        
         return CalculateSteering(dessired.normalized);
     }
 
     public void Die()
-    {        
+    {
+        _velocity = Vector3.zero;
         _machine.ChangeState(BoidState.Dead);
         _isAlive = false;
     }

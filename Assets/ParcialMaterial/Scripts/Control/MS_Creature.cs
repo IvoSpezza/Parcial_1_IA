@@ -15,7 +15,7 @@ public class MS_Creature : MonoBehaviour
     }
 
     public Vector3 CalculateSteering(Vector3 desired)
-    {
+    {        
         desired *= _maxSpeed;
 
         Vector3 steering = desired - _velocity;

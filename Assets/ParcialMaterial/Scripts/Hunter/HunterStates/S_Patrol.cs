@@ -8,32 +8,46 @@ public class S_Patrol : CreatureState
     private MS_Hunter _me;
     private int _actualPoint;
 
+    private bool _loopCompleted;
     private PatrolMetod _actualMetod;
 
+    private float _actualTime;
+    private float _tba;
+    private bool _iTriedAtack;
+    public event System.Action CanAtack;
 
-    public S_Patrol(PatrolData data, MS_Hunter me)
+    public S_Patrol(PatrolData data, MS_Hunter me, float tba)
     {
         _data = data;
         _me = me;
+        _tba = tba;
         _actualPoint = _data._pathPoints.Count / 2;
 
     }
 
     public override void Enter()
     {
+        _iTriedAtack = false;
+        _actualTime = 0;
+        _loopCompleted = false;
+        _orientation = Random.Range(0, 2);
         _orientation = Random.Range(0, 2);
         _actualMetod = (PatrolMetod)_orientation;
-        _orientation = _orientation * 2 - 1;
-        Debug.Log(_actualMetod);
-        
+        _orientation = _orientation * 2 - 1;          
     }
 
 
     public override void Update()
     {
         Patrol();
+        _actualTime += Time.deltaTime;
         _me.transform.position += _me._velocity * Time.deltaTime;
         _me.transform.forward = _me._velocity;
+        if(_actualTime >= _tba && !_iTriedAtack)
+        {
+            CanAtack?.Invoke();
+            _iTriedAtack = true;
+        }
     }
 
     public override void Exit()
@@ -55,8 +69,12 @@ public class S_Patrol : CreatureState
                 PingPong();
             }
 
-
+            if (!_loopCompleted)
+            {
                 _actualPoint += _orientation;
+                _loopCompleted = false;
+            }
+                
         }
         Seek(Desired());
     }
@@ -66,9 +84,12 @@ public class S_Patrol : CreatureState
         if (_actualPoint == 0 && _orientation < 0)
         {
             _actualPoint = _data._pathPoints.Count - 1;
+            _loopCompleted = true;
+
         } else if (_actualPoint == _data._pathPoints.Count - 1 && _orientation > 0)
         {
             _actualPoint = 0;
+            _loopCompleted = true;
         }
     }
     private void PingPong()

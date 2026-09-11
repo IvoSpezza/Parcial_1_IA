@@ -43,7 +43,6 @@ public class S_Flocking : CreatureState
             dessired += agent._velocity;
         }
         dessired /= _agents.Count;
-        dessired.y = 0;
         if (dessired.sqrMagnitude < 0.001f)
         {
             return Vector3.zero;
@@ -54,19 +53,25 @@ public class S_Flocking : CreatureState
     private Vector3 CalculateCohesion()
     {
         Vector3 dessired = default;
-        if (_agents.Count == 0)
-        {
-            return dessired;
-        }
+        int deadOnes = 0;
+
+        if (_agents.Count == 0) return dessired;
+      
         foreach (MS_BoidControlScript agent in _agents)
         {
-            dessired += agent.transform.position;
+            if (agent._isAlive)
+            {
+                dessired += agent.transform.position;
+            }
+            else
+            {
+                deadOnes++;
+            }
         }
 
-        dessired /= _agents.Count;
+        dessired /= (_agents.Count-deadOnes);
 
         dessired -= _me.transform.position;
-        dessired.y = 0;
         if (dessired.sqrMagnitude < 0.001f)
         {
             return Vector3.zero;

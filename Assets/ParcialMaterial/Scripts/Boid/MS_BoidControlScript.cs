@@ -10,7 +10,7 @@ public class MS_BoidControlScript : MS_Creature
     public StateMachine _machine {  get; private set; }
 
     private List<MS_BoidControlScript> _agents;
-    private bool _isAlive;
+    public bool _isAlive { get; private set; }
 
     public MS_Hunter _enemy {  get; private set; }
     private SphereCollider _collision;
@@ -33,6 +33,8 @@ public class MS_BoidControlScript : MS_Creature
         _machine.AddState(flocking, BoidState.Flocking);
         _machine.AddState(evade, BoidState.Evading);
 
+        S_Dead dead = new S_Dead(this);
+        _machine.AddState(dead, BoidState.Dead);
         _machine.ChangeState(BoidState.Flocking);
     }
 
@@ -43,12 +45,15 @@ public class MS_BoidControlScript : MS_Creature
 
     private void Update()
     {
-        _velocity += CalculateSeparation() * _dataForFlocking._separationWeight;
-        _machine.MachineUpdate();
-        
-        transform.position += _velocity * Time.deltaTime;
-        transform.forward = _velocity;
-        transform.position = Bounds.instance.OutOfBounds(transform.position);
+        if (_isAlive)
+        {
+            _velocity += CalculateSeparation() * _dataForFlocking._separationWeight;
+            transform.position += _velocity * Time.deltaTime;
+            transform.forward = _velocity;
+            transform.position = Bounds.instance.OutOfBounds(transform.position);
+        }
+        _machine.MachineUpdate();        
+                
     }
     
     private void OnTriggerEnter(Collider other)
@@ -69,13 +74,13 @@ public class MS_BoidControlScript : MS_Creature
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.TryGetComponent<MS_Hunter>(out MS_Hunter enemy))
+        if (other.gameObject.TryGetComponent<MS_Hunter>(out MS_Hunter enemy) && _isAlive)
         {
             _enemy = null;
             _machine.ChangeState(BoidState.Flocking);
         }
 
-        if (other.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript anotherAgent))
+        if (other.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript anotherAgent) && _isAlive)
         {
             _agents.Remove(anotherAgent);
             
@@ -84,7 +89,7 @@ public class MS_BoidControlScript : MS_Creature
 
     private void RandomMovement()
     {
-        Vector3 randomDirection = new Vector3(Random.Range(-1, 1), 0f, Random.Range(-1, 1));
+        Vector3 randomDirection = new Vector3(Random.Range(0, 2) * 2 -1, 0f, Random.Range(0, 2) * 2 - 1);
         AplyVelocity(randomDirection.normalized * _maxSpeed);
     }
 
@@ -110,6 +115,12 @@ public class MS_BoidControlScript : MS_Creature
             return Vector3.zero;
         }
         return CalculateSteering(dessired.normalized);
+    }
+
+    public void Die()
+    {        
+        _machine.ChangeState(BoidState.Dead);
+        _isAlive = false;
     }
 
 }

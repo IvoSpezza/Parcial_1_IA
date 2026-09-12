@@ -11,8 +11,7 @@ public class S_Flocking : CreatureState
     {
         _me = me;
         _agents = agents;
-        _flockingData = flockingData;
-        _maxSpeed = maxSpeed;
+        _flockingData = flockingData;        
         _steering = steering;
     }
 
@@ -42,11 +41,15 @@ public class S_Flocking : CreatureState
         {
             dessired += agent._velocity;
         }
-        dessired /= _agents.Count;
-        if (dessired.sqrMagnitude < 0.001f)
+
+        if(_agents.Count == 0)
         {
-            return Vector3.zero;
+            Debug.Log("ToySolo");
+            return _me.transform.forward;
         }
+
+        dessired /= _agents.Count;
+                
         return _me.CalculateSteering(dessired.normalized);
     }
 

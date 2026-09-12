@@ -5,6 +5,9 @@ public class Bounds : MonoBehaviour
     [SerializeField] private float _height;
     [SerializeField] private float _width;
     [SerializeField] private bool _drawGizmos;
+
+    public float Heigth => _height;
+    public float Width => _width;
     public static Bounds instance { get; private set; }
 
     

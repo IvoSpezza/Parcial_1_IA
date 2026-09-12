@@ -21,14 +21,12 @@ public class S_Patrol : CreatureState
         _data = data;
         _me = me;
         _tba = tba;
-        _actualPoint =Random.Range(0,_data._pathPoints.Count);
+        _actualPoint = Random.Range(0,_data._pathPoints.Count);
 
     }
 
     public override void Enter()
-    {
-        _iTriedAtack = false;
-        _actualTime = 0;
+    {           
         _loopCompleted = false;
         _orientation = Random.Range(0, 2);
         _orientation = Random.Range(0, 2);
@@ -52,6 +50,11 @@ public class S_Patrol : CreatureState
 
     public override void Exit()
     {
+        if (_iTriedAtack)
+        {
+            _actualTime = 0;
+            _iTriedAtack = false;
+        }
 
     }
 

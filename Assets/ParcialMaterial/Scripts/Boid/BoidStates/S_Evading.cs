@@ -5,8 +5,7 @@ public class S_Evading : CreatureState
     private MS_BoidControlScript _me;
     public S_Evading(MS_BoidControlScript  me, float maxSpeed)
     {
-        _me = me;
-        _maxSpeed = maxSpeed;
+        _me = me;        
     }
     public override void Enter()
     {

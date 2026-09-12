@@ -11,12 +11,7 @@ public class Boid_AnimationController : MonoBehaviour
         _animationState = GetComponent<MS_BoidControlScript>()._machine;
         _animationState.OnStateChanged += SetAnimation;
     }
-
-    private void OnDisable()
-    {
-        _animationState.OnStateChanged -= SetAnimation;
-    }
-
+       
     private void SetAnimation(Enum state)
     {
         BoidState boidState = (BoidState)state;

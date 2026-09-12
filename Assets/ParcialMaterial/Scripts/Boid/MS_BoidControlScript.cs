@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Mono Behabiur para controloar a los boids
 public class MS_BoidControlScript : MS_Creature
 {
     [SerializeField] private float _minSpeed;
-
     [SerializeField] private float _maxSeeDistance;    
     [SerializeField] private FlockingData _dataForFlocking;
 
@@ -15,6 +16,9 @@ public class MS_BoidControlScript : MS_Creature
 
     public MS_Hunter _enemy {  get; private set; }
     private SphereCollider _collision;
+
+    private OP_Pool _dadPool;
+    public event Action OnBodyRecolected;
 
     private void Awake()
     {
@@ -44,15 +48,18 @@ public class MS_BoidControlScript : MS_Creature
         RandomMovement();
     }
 
+    public void SetPool(OP_Pool myPool)
+    {
+        _dadPool = myPool;
+    }
+
     private void Update()
     {
         _machine.MachineUpdate();
         if (_isAlive)
         {
             _velocity += CalculateSeparation() * _dataForFlocking._separationWeight;
-
-            SetMinSpeed();
-
+                    
             transform.position += _velocity * Time.deltaTime;
             transform.forward = _velocity;
             transform.position = Bounds.instance.OutOfBounds(transform.position);                  
@@ -60,14 +67,6 @@ public class MS_BoidControlScript : MS_Creature
         
     }
 
-    private void SetMinSpeed()
-    {
-        if (_velocity.sqrMagnitude <= (_minSpeed * _minSpeed))
-        {
-            Vector3 fallbackDirection = transform.forward;
-            _velocity = fallbackDirection * _maxSpeed;
-        }
-    }
     
     private void OnTriggerEnter(Collider other)
     {
@@ -105,7 +104,7 @@ public class MS_BoidControlScript : MS_Creature
 
     private void RandomMovement()
     {
-        Vector3 randomDirection = new Vector3(Random.Range(0, 2) * 2 -1, 0f, Random.Range(0, 2) * 2 - 1);
+        Vector3 randomDirection = new Vector3(UnityEngine.Random.Range(0, 2) * 2 -1, 0f, UnityEngine.Random.Range(0, 2) * 2 - 1);
         AplyVelocity(randomDirection.normalized * _maxSpeed);
     }
 
@@ -113,6 +112,7 @@ public class MS_BoidControlScript : MS_Creature
     private Vector3 CalculateSeparation()
     {
         Vector3 dessired = default;
+        Vector3 ponderatedSep;
         if (_agents.Count == 0)
         {
             return dessired;
@@ -122,10 +122,13 @@ public class MS_BoidControlScript : MS_Creature
         {
             if (Vector3.Distance(agent.transform.position, transform.position) <= _dataForFlocking._minEvadeDistance)
             {
-                dessired += transform.position - agent.transform.position;
+                ponderatedSep = transform.position - agent.transform.position;
+                ponderatedSep /= Vector3.Distance(transform.position, agent.transform.position);
+                dessired += ponderatedSep;
             }
         }
         dessired.y = 0;
+        dessired /= _agents.Count;
         
         if (dessired.sqrMagnitude < 0.001f)
         {
@@ -140,6 +143,13 @@ public class MS_BoidControlScript : MS_Creature
         _velocity = Vector3.zero;
         _machine.ChangeState(BoidState.Dead);
         _isAlive = false;
+    }
+
+    public void Recolect()
+    {
+        _isAlive = true;
+        OnBodyRecolected?.Invoke();
+        _dadPool.Disable(gameObject);
     }
 
 }

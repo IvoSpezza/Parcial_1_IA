@@ -4,12 +4,15 @@ using UnityEngine;
 public class MS_Hunter : MS_Creature
 {
     [SerializeField] private float _tba;
-    [SerializeField] public float _rangeOfDetection;
+    [SerializeField] private float _rangeOfDetection;
 
+    [Header("States Data")]
     [SerializeField] private PatrolData _patrol;
     [SerializeField] private AtackDatta _atack;
+    [SerializeField] private RecolectData _recolectData;
 
     private List<MS_BoidControlScript> _posiblePreys;
+    private Stack<MS_BoidControlScript> _deadBoids;
     private StateMachine _hunterMachine;
 
     private bool _timeToAtack;
@@ -27,14 +30,20 @@ public class MS_Hunter : MS_Creature
         _viewDistance.radius = _rangeOfDetection;
 
         _posiblePreys = new List<MS_BoidControlScript>();
+        _deadBoids = new Stack<MS_BoidControlScript>();
+
         _hunterMachine = new StateMachine();
         S_Patrol patrolState = new S_Patrol(_patrol,this,_tba);
         patrolState.CanAtack += CanAtack;
         _hunterMachine.AddState(patrolState, HunterStates.Patrol);
 
         S_Atack atacState = new S_Atack(_posiblePreys, _atack,this,animation);
-        atacState.OnAtackCreature += AtackEnded;
+        atacState.OnAtackCreature += ChangeToPatrol;
         _hunterMachine.AddState(atacState, HunterStates.Hunt);
+
+        S_Recolect recolect = new S_Recolect(this, _recolectData, _deadBoids,animation);
+        recolect.OnRecolect += ChangeToPatrol;
+        _hunterMachine.AddState(recolect, HunterStates.Recolect);
 
         _hunterMachine.ChangeState(HunterStates.Patrol);
     }
@@ -53,9 +62,15 @@ public class MS_Hunter : MS_Creature
 
         if(boid.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript  prey))
         {
-            if (!prey._isAlive) return;
+            if (!prey._isAlive)
+            {
+                _deadBoids.Push(prey);
+                _velocity = Vector3.zero;
+                _hunterMachine.ChangeState(HunterStates.Recolect);
+            }
+
             _posiblePreys.Add(prey);
-            if(_posiblePreys.Count == 1)
+            if(_posiblePreys.Count >= 1)
             {
                 _preysToAtack = true;
                 TryAtack();
@@ -78,6 +93,7 @@ public class MS_Hunter : MS_Creature
         }
     }
 
+    //Time to atack charged
     private void CanAtack()
     {
         _timeToAtack = true;
@@ -87,20 +103,19 @@ public class MS_Hunter : MS_Creature
         }
     }
 
+    //With someone on range tries to atack if atack coldown has pased
     private void TryAtack()
     {
         if(_timeToAtack && _preysToAtack)
-        {
-            _timeToAtack = false;
+        { 
             _hunterMachine.ChangeState(HunterStates.Hunt);
         }
     }
 
-    private void AtackEnded(AtackTipe atackTipe)
+    private void ChangeToPatrol(bool resetTTA)
     {
-        if(atackTipe == AtackTipe.Fail)
-        {
-            _timeToAtack = true;
+        if(!resetTTA)
+        {           
             _hunterMachine.ChangeState(HunterStates.Patrol);
         }
         else

@@ -31,7 +31,7 @@ public class S_Recolect : CreatureState
     {
         Vector3 steering = _me.Arrive(_deadBody.transform.position, _data._minDistance, _data._dtss);
         _me.AplyVelocity(steering);        
-        _me.transform.position += _me._velocity;
+        _me.transform.position += _me._velocity * Time.deltaTime;
         _me.transform.forward = steering;
 
         if (steering == Vector3.zero)

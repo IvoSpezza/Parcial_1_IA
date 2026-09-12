@@ -1,7 +1,5 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class S_Atack : CreatureState

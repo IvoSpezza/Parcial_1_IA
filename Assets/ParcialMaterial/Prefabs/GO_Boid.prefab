@@ -31,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.05314, y: 0, z: -2.65788}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.79, y: 0.79, z: 0.79}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3456019874487757541}
   m_Father: {fileID: 0}
@@ -49,14 +49,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c2c34333ea0574398df4003dd1281e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MS_BoidControlScript
-  _maxSpeed: 20
-  _steering: 8
-  _maxSeeDistance: 12
+  _maxSpeed: 18
+  _steering: 12
+  _minSpeed: 3
+  _maxSeeDistance: 13
   _dataForFlocking:
-    _separationWeight: 1.71
-    _cohesionWeight: 0.72
-    _aligmentWeight: 0.92
-    _minEvadeDistance: 6
+    _separationWeight: 2.3
+    _cohesionWeight: 0.6
+    _aligmentWeight: 0.8
+    _minEvadeDistance: 5
 --- !u!135 &290239648331519647
 SphereCollider:
   m_ObjectHideFlags: 0

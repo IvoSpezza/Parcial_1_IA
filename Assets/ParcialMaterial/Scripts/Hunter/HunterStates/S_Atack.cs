@@ -13,7 +13,7 @@ public class S_Atack : CreatureState
     private Action WayOfKilling;
     private float _rangedCharge;
 
-    public event Action<AtackTipe> OnAtackCreature;
+    public event Action<bool> OnAtackCreature;
 
     public S_Atack(List<MS_BoidControlScript> boidsInRange, AtackDatta atackData, MS_Hunter me, Animator animator)
     {
@@ -33,7 +33,7 @@ public class S_Atack : CreatureState
     {
         if (_boidsInRange.Count == 0)
         {
-            OnAtackCreature?.Invoke(AtackTipe.Fail);
+            OnAtackCreature?.Invoke(false);
             _myPrey = null;
             _animator.SetBool("Aim", false);
             return;
@@ -94,7 +94,7 @@ public class S_Atack : CreatureState
         if (distanceToPrey <= _atackData._mad)
         {
             _animator.SetTrigger("Melee");
-            Atack(AtackTipe.Succes);
+            Atack(true);
         }
     }
 
@@ -118,7 +118,7 @@ public class S_Atack : CreatureState
         {
             _animator.SetTrigger("Shoot");
             _animator.SetBool("Aim", false);
-            Atack(AtackTipe.Succes);
+            Atack(true);
         }
     }
     public void Seek(Vector3 target)
@@ -127,11 +127,11 @@ public class S_Atack : CreatureState
         _me.AplyVelocity(_me.CalculateSteering(desired));
     }
 
-    private void Atack(AtackTipe atackTipe)
+    private void Atack(bool sucsesFulliAtaqued)
     {
         _boidsInRange.Remove(_myPrey);
         _myPrey.Die();
-        OnAtackCreature?.Invoke(atackTipe);
+        OnAtackCreature?.Invoke(sucsesFulliAtaqued);
     }
     
     public void Pursuit(MS_Creature target)
@@ -158,10 +158,4 @@ public class AtackDatta
 
     public float _ract;
     public float _rad;
-}
-
-public enum AtackTipe
-{
-    Succes,
-    Fail
 }

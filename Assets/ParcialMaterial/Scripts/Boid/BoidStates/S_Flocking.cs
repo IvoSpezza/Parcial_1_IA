@@ -35,17 +35,11 @@ public class S_Flocking : CreatureState
         Vector3 dessired = default;
         if (_agents.Count == 0)
         {
-            return dessired;
+            return _me.transform.forward; ;
         }
         foreach (MS_BoidControlScript agent in _agents)
         {
             dessired += agent._velocity;
-        }
-
-        if(_agents.Count == 0)
-        {
-            Debug.Log("ToySolo");
-            return _me.transform.forward;
         }
 
         dessired /= _agents.Count;
@@ -58,7 +52,7 @@ public class S_Flocking : CreatureState
         Vector3 dessired = default;
         int deadOnes = 0;
 
-        if (_agents.Count == 0) return dessired;
+        if (_agents.Count == 0) return Vector3.zero;
       
         foreach (MS_BoidControlScript agent in _agents)
         {
@@ -72,9 +66,10 @@ public class S_Flocking : CreatureState
             }
         }
 
-        dessired /= (_agents.Count-deadOnes);
+        if (_agents.Count - deadOnes == 0) return Vector3.zero;
 
-        dessired -= _me.transform.position;
+        dessired /= (_agents.Count-deadOnes);
+               
         if (dessired.sqrMagnitude < 0.001f)
         {
             return Vector3.zero;

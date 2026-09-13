@@ -18,7 +18,7 @@ public class OP_Pool
         _pool = new Queue<GameObject>();
     }
 
-    private GameObject CreateObject()
+    public GameObject CreateObject()
     {
         _maxCount++;
 

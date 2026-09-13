@@ -24,6 +24,7 @@ public class MS_BoidSpawner : MonoBehaviour
         for (int i = 0; i < _boidsGenerated; i++)
         {
             boid = _pool.Get().GetComponent<MS_BoidControlScript>(); ;
+            boid.SetPool(_pool);
             boid.OnBodyRecolected += QueueRevive;
             boid.transform.position = GetRandomPosition();
         }

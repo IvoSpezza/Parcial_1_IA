@@ -44,7 +44,7 @@ public class MS_Creature : MonoBehaviour
 
     }
 
-    public Vector3 Arrive(Vector3 target, float minDistance, float maxDistance)
+    public void Arrive(Vector3 target, float minDistance, float maxDistance)
     {
         Vector3 direction = target - transform.position;
 
@@ -52,16 +52,17 @@ public class MS_Creature : MonoBehaviour
 
         if (distance <= minDistance)
         {
-            return Vector3.zero;
+            _velocity = Vector3.zero;
+            return ;
         }
 
         float desiredSpeed = _maxSpeed * Mathf.Clamp01(distance / maxDistance);
 
-        Vector3 desired = direction.normalized * desiredSpeed;
+        Vector3 desired = direction.normalized * desiredSpeed; 
 
         Vector3 Steering = CalculateSteering(desired);
-
-        return Steering;
+        
+        AplyVelocity(Steering);
     }
 
     public void AplyVelocity(Vector3 velocity)

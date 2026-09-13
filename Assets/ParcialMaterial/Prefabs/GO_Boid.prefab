@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 290239648331519647}
   - component: {fileID: 1587590603776641538}
   - component: {fileID: 6046032591777769707}
-  - component: {fileID: 6087894166642160491}
   m_Layer: 0
   m_Name: GO_Boid
   m_TagString: Untagged
@@ -50,14 +49,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MS_BoidControlScript
   _maxSpeed: 18
-  _steering: 12
+  _steering: 14
   _minSpeed: 3
-  _maxSeeDistance: 13
+  _maxSeeDistance: 16
   _dataForFlocking:
     _separationWeight: 2.3
-    _cohesionWeight: 0.6
-    _aligmentWeight: 0.8
-    _minEvadeDistance: 5
+    _cohesionWeight: 0.74
+    _aligmentWeight: 1.19
+    _minEvadeDistance: 4
 --- !u!135 &290239648331519647
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -128,18 +127,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6087894166642160491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1302149885179209587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b262beccf139e54fbeaa2f55ca88da9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Boid_AnimationController
 --- !u!1 &2268566777516757032
 GameObject:
   m_ObjectHideFlags: 0

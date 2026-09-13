@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &60921011 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2433348731348448069, guid: 799ea4c9d795e6541ae188caab00d7d7, type: 3}
-  m_PrefabInstance: {fileID: 2387385895876480955}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ad3aa59b0f47046b16348806bd4e98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoveBeteenPoints
 --- !u!1 &103433654
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,6 +1011,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513371041}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1556586042 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7815696420602090529, guid: 4b9a107ca20c157478a430a03b8748dd, type: 3}
+  m_PrefabInstance: {fileID: 7851300178695325695}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98fe8d0ec9041b741b64e238d4678e2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WASDmovement
 --- !u!1 &1924877005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,19 +1108,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _maxSpeed
-      value: 3
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _movement
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _objetive
       value: 
-      objectReference: {fileID: 60921011}
+      objectReference: {fileID: 1556586042}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
+      propertyPath: _maxDistance
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _arriveOrScape
@@ -1128,7 +1132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495676420314174508, guid: 2b3d0960024179748846b4f4886d3ddf, type: 3}
       propertyPath: _steeringSpeed
-      value: 4
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

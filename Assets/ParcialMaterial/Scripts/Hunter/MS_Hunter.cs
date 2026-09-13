@@ -3,52 +3,60 @@ using UnityEngine;
 
 public class MS_Hunter : MS_Creature
 {
-    [SerializeField] private float _tba;
     [SerializeField] private float _rangeOfDetection;
+
+    [SerializeField] private Transform _shootingPoint;
+    [SerializeField] private int _bulletsAmount;
+    [SerializeField] private GameObject _bulletPrefab;
+    private OP_Pool _bulletsPool;
 
     [Header("States Data")]
     [SerializeField] private PatrolData _patrol;
     [SerializeField] private AtackDatta _atack;
     [SerializeField] private RecolectData _recolectData;
 
-    private List<MS_BoidControlScript> _posiblePreys;
-    private Stack<MS_BoidControlScript> _deadBoids;
     private StateMachine _hunterMachine;
+    private HunterData _hunterData;
 
-    private bool _timeToAtack;
-    private bool _preysToAtack;
-    
     private SphereCollider _viewDistance;
-    
+
     private void Awake()
     {
         Animator animation = GetComponent<Animator>();
 
-        _timeToAtack = false;
+        _hunterMachine = new StateMachine();
+
+        _hunterData = new HunterData();
+        _hunterData._posiblePreys = new List<MS_BoidControlScript>();
+        _hunterData._deadBoids = new List<MS_BoidControlScript>();
+        _hunterData._canAtack = false;
+
+        _bulletsPool = new OP_Pool(_bulletPrefab, transform.parent, _bulletsAmount);
 
         _viewDistance = GetComponent<SphereCollider>();
         _viewDistance.radius = _rangeOfDetection;
 
-        _posiblePreys = new List<MS_BoidControlScript>();
-        _deadBoids = new Stack<MS_BoidControlScript>();
-
-        _hunterMachine = new StateMachine();
-        S_Patrol patrolState = new S_Patrol(_patrol,this,_tba);
-        patrolState.CanAtack += CanAtack;
+        S_Patrol patrolState = new S_Patrol(_patrol, this, _hunterMachine, _hunterData, animation);
         _hunterMachine.AddState(patrolState, HunterStates.Patrol);
 
-        S_Atack atacState = new S_Atack(_posiblePreys, _atack,this,animation);
-        atacState.OnAtackCreature += ChangeToPatrol;
+        S_Atack atacState = new S_Atack(_atack, this, _hunterMachine, _hunterData, animation);
         _hunterMachine.AddState(atacState, HunterStates.Hunt);
 
-        S_Recolect recolect = new S_Recolect(this, _recolectData, _deadBoids,animation);
-        recolect.OnRecolect += ChangeToPatrol;
+        S_Recolect recolect = new S_Recolect(_recolectData,this,_hunterMachine,_hunterData, animation);        
         _hunterMachine.AddState(recolect, HunterStates.Recolect);
 
         _hunterMachine.ChangeState(HunterStates.Patrol);
     }
 
-    
+    private void Start()
+    {
+        MS_Bullet bullet;
+        for(int i = 0;i<_bulletsAmount ; i++)
+        {
+            bullet = _bulletsPool.CreateObject().GetComponent<MS_Bullet>();
+            bullet.SetPool(_bulletsPool);
+        }
+    }
 
     private void Update()
     {
@@ -60,71 +68,47 @@ public class MS_Hunter : MS_Creature
     {
         GameObject boid = other.gameObject.transform.parent.gameObject;
 
-        if(boid.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript  prey))
+        if (boid.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript prey))
         {
+                     
+
             if (!prey._isAlive)
             {
-                _deadBoids.Push(prey);
-                _velocity = Vector3.zero;
-                _hunterMachine.ChangeState(HunterStates.Recolect);
+                _hunterData._deadBoids.Add(prey);
+                return;
             }
-
-            _posiblePreys.Add(prey);
-            if(_posiblePreys.Count >= 1)
-            {
-                _preysToAtack = true;
-                TryAtack();
-            }
+            if(!_hunterData._posiblePreys.Contains(prey))
+            _hunterData._posiblePreys.Add(prey);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         GameObject boid = other.gameObject.transform.parent.gameObject;
-
         if (boid.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript prey))
         {
-            if (!prey._isAlive) return;
-            _posiblePreys.Remove(prey);
-            if (_posiblePreys.Count == 0)
+            if (!prey._isAlive)
             {
-                _preysToAtack = false;
+                _hunterData._deadBoids.Remove(prey);
+                return;
             }
+            _hunterData._posiblePreys.Remove(prey);
         }
-    }
+    } 
 
-    //Time to atack charged
-    private void CanAtack()
+    public void Shoot(Vector3 objetibe)
     {
-        _timeToAtack = true;
-        if (_preysToAtack)
-        {
-            TryAtack();
-        }
+        GameObject bullet = _bulletsPool.Get();
+        bullet.transform.position = _shootingPoint.position;
+        bullet.transform.forward = (objetibe - bullet.transform.position).normalized;
     }
 
-    //With someone on range tries to atack if atack coldown has pased
-    private void TryAtack()
-    {
-        if(_timeToAtack && _preysToAtack)
-        { 
-            _hunterMachine.ChangeState(HunterStates.Hunt);
-        }
-    }
-
-    private void ChangeToPatrol(bool resetTTA)
-    {
-        if(!resetTTA)
-        {           
-            _hunterMachine.ChangeState(HunterStates.Patrol);
-        }
-        else
-        {
-            _timeToAtack = false;
-            _hunterMachine.ChangeState(HunterStates.Patrol);
-        }
-    }
-
+}
+public class HunterData
+{
+    public List<MS_BoidControlScript> _posiblePreys;
+    public List<MS_BoidControlScript> _deadBoids;
+    public bool _canAtack;
 }
 
 public enum HunterStates

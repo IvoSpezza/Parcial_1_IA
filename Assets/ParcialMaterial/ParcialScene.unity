@@ -993,16 +993,40 @@ PrefabInstance:
       value: Hunter
       objectReference: {fileID: 0}
     - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
+      propertyPath: _maxSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
+      propertyPath: _steering
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: _atack._ract
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
+      propertyPath: _patrol._tba
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
+      propertyPath: _bulletPrefab
+      value: 
+      objectReference: {fileID: 7443724961496179969, guid: 5aca629334fa37643967b73614900c40, type: 3}
+    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
+      propertyPath: _bulletsAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
+      propertyPath: _rangeOfDetection
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: _recolectData._dtss
-      value: 15
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: _recolectData._minDistance
-      value: 0.1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: _recolectData._timeToRecolect

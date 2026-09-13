@@ -12,26 +12,34 @@ public class S_Patrol : CreatureState
     private PatrolMetod _actualMetod;
 
     private float _actualTime;
-    private float _tba;
-    private bool _iTriedAtack;
-    public event System.Action CanAtack;
+    private HunterData _hunterData;
+    private StateMachine _hunterMachine;
 
-    public S_Patrol(PatrolData data, MS_Hunter me, float tba)
+    private Animator _animator;
+    
+
+    public S_Patrol(PatrolData data, MS_Hunter me, StateMachine hunterMachine, HunterData hunterData, Animator animator)
     {
         _data = data;
         _me = me;
-        _tba = tba;
-        _actualPoint = Random.Range(0,_data._pathPoints.Count);
-
+        _hunterMachine = hunterMachine;        
+        _hunterData = hunterData;
+        _animator = animator;
     }
 
     public override void Enter()
-    {           
+    {
+        _animator.SetBool("Patrol", true);
+                
+        Debug.Log(_hunterData._canAtack);
+                
         _loopCompleted = false;
         _orientation = Random.Range(0, 2);
-        _orientation = Random.Range(0, 2);
         _actualMetod = (PatrolMetod)_orientation;
-        _orientation = _orientation * 2 - 1;          
+
+        _orientation = Random.Range(0, 2);
+        _orientation = _orientation * 2 - 1;
+        _actualPoint = Random.Range(0, _data._pathPoints.Count);
     }
 
 
@@ -41,21 +49,33 @@ public class S_Patrol : CreatureState
         _actualTime += Time.deltaTime;
         _me.transform.position += _me._velocity * Time.deltaTime;
         _me.transform.forward = _me._velocity;
-        if(_actualTime >= _tba && !_iTriedAtack)
+
+        if(_actualTime >= _data._tba)
         {
-            CanAtack?.Invoke();
-            _iTriedAtack = true;
+            _hunterData._canAtack = true;
         }
+
+        TryAtack();
+
     }
 
     public override void Exit()
     {
-        if (_iTriedAtack)
+        _actualTime = 0;
+    }
+
+    private void TryAtack()
+    {           
+        if (_hunterData._deadBoids.Count > 0)
         {
-            _actualTime = 0;
-            _iTriedAtack = false;
+            _hunterMachine.ChangeState(HunterStates.Recolect);
+            return;
         }
 
+        if (_hunterData._canAtack && _hunterData._posiblePreys.Count > 0)
+        {
+            _hunterMachine.ChangeState(HunterStates.Hunt);
+        }
     }
 
     public void Patrol()
@@ -102,6 +122,7 @@ public class S_Patrol : CreatureState
         if ((_actualPoint == 0 && _orientation < 0) || (_actualPoint == _data._pathPoints.Count - 1 && _orientation > 0))
         {
             _orientation *= -1;
+            _loopCompleted = true;
         }
     }
 
@@ -124,6 +145,7 @@ public class PatrolData
     public List<Transform> _pathPoints;
     public float _minRangeToChange;
     public float _patrolSpeed;
+    public float _tba;
 }
 
 public enum PatrolMetod

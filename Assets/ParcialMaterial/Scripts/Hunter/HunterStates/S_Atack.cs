@@ -4,43 +4,46 @@ using UnityEngine;
 
 public class S_Atack : CreatureState
 {
-    private List<MS_BoidControlScript> _boidsInRange;
+    private HunterData _hunterData;
+    private StateMachine _hunterMachine;
     private MS_Hunter _me;
     private MS_BoidControlScript _myPrey;
     private AtackDatta _atackData;
+
     private Action WayOfKilling;
     private float _rangedCharge;
+    private bool _canShoot;
 
-    public event Action<bool> OnAtackCreature;
-
-    public S_Atack(List<MS_BoidControlScript> boidsInRange, AtackDatta atackData, MS_Hunter me, Animator animator)
+    public S_Atack(AtackDatta atackData, MS_Hunter me,StateMachine hunterMachine, HunterData hunterData, Animator animator)
     {
-        _boidsInRange = boidsInRange;
+        _hunterData = hunterData;
+        _hunterMachine = hunterMachine;
         _atackData = atackData;
         _me = me;
         _animator = animator;
     }
 
     public override void Enter()
-    {
+    {        
+        _canShoot = true;
         _rangedCharge = 0;
         DeterminePrey();        
     }
 
     private void DeterminePrey()
     {
-        if (_boidsInRange.Count == 0)
-        {
-            OnAtackCreature?.Invoke(false);
+        if (_hunterData._posiblePreys.Count == 0)
+        {            
             _myPrey = null;
             _animator.SetBool("Aim", false);
+            _hunterMachine.ChangeState(HunterStates.Patrol);
             return;
         }
 
-        _myPrey = _boidsInRange[0];
+        _myPrey = _hunterData._posiblePreys[0];
         float minDistance = Vector3.Distance(_me.transform.position, _myPrey.transform.position);
         float checkDistance;
-        foreach(MS_BoidControlScript posiblePrey in _boidsInRange)
+        foreach(MS_BoidControlScript posiblePrey in _hunterData._posiblePreys)
         {
             checkDistance = Vector3.Distance(_me.transform.position, posiblePrey.transform.position);
             if (checkDistance < minDistance)
@@ -49,15 +52,13 @@ public class S_Atack : CreatureState
                 minDistance = checkDistance;
             }
         }
-
         DetermineWayOfKilling();        
     }
 
     public override void Update()
     {
         if (_myPrey != null)
-        {
-            Debug.DrawLine(_me.transform.position, _myPrey.transform.position, Color.red, 0.01f);
+        {           
             WayOfKilling();
         }
     }
@@ -79,7 +80,7 @@ public class S_Atack : CreatureState
         _animator.SetBool("Aim", false);
         Pursuit(_myPrey);        
         _me.transform.position += _me._velocity * Time.deltaTime;
-        _me.transform.forward = _myPrey.transform.position - _me.transform.position;
+        _me.transform.forward = _me.CalculateSteering(_myPrey.transform.position - _me.transform.position);
 
         float distanceToPrey = Vector3.Distance(_me.transform.position, _myPrey.transform.position);
 
@@ -92,7 +93,7 @@ public class S_Atack : CreatureState
         if (distanceToPrey <= _atackData._mad)
         {
             _animator.SetTrigger("Melee");
-            Atack(true);
+            MeleAtack();
         }
     }
 
@@ -100,11 +101,11 @@ public class S_Atack : CreatureState
     {
         _animator.SetBool("Aim", true);
         _me.AplyVelocity(-_me._velocity);
-        _me.transform.forward = _myPrey.transform.position - _me.transform.position;
+        _me.transform.forward = _me.CalculateSteering(_myPrey.transform.position - _me.transform.position);
         _rangedCharge += Time.deltaTime;
 
         float distanceToPrey = Vector3.Distance(_me.transform.position, _myPrey.transform.position);
-
+        
         if (distanceToPrey <= _atackData._mPr) WayOfKilling = KillitMelee;        
 
         if (distanceToPrey > _atackData._rad)
@@ -112,11 +113,14 @@ public class S_Atack : CreatureState
             DeterminePrey();
         }
 
-        if(_rangedCharge >= _atackData._ract)
+        if(_rangedCharge >= _atackData._ract && _canShoot)
         {
+            _canShoot = false;
             _animator.SetTrigger("Shoot");
             _animator.SetBool("Aim", false);
-            Atack(true);
+            _me.Shoot(_me.CalculateFuture(_myPrey));
+            _hunterData._canAtack = false;
+            _hunterMachine.ChangeState(HunterStates.Patrol);
         }
     }
     public void Seek(Vector3 target)
@@ -125,11 +129,14 @@ public class S_Atack : CreatureState
         _me.AplyVelocity(_me.CalculateSteering(desired));
     }
 
-    private void Atack(bool sucsesFulliAtaqued)
+    private void MeleAtack()
     {
-        _boidsInRange.Remove(_myPrey);
         _myPrey.Die();
-        OnAtackCreature?.Invoke(sucsesFulliAtaqued);
+        _hunterData._deadBoids.Add(_myPrey);
+        _hunterData._posiblePreys.Remove(_myPrey);
+        _hunterData._canAtack = false;
+        Debug.Log(_hunterData._canAtack);
+        _hunterMachine.ChangeState(HunterStates.Recolect);
     }
     
     public void Pursuit(MS_Creature target)
@@ -141,7 +148,8 @@ public class S_Atack : CreatureState
     }
     public override void Exit()
     {
-        base.Exit();
+        _myPrey = null;
+        
     }
 
 }

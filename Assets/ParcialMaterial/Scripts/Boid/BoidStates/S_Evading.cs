@@ -3,13 +3,15 @@ using UnityEngine;
 public class S_Evading : CreatureState
 {
     private MS_BoidControlScript _me;
-    public S_Evading(MS_BoidControlScript  me, float maxSpeed)
+    private Animator _animation;
+    public S_Evading(MS_BoidControlScript  me, float maxSpeed, Animator animation)
     {
         _me = me;        
+        _animation = animation;
     }
     public override void Enter()
     {
-      
+        _animation.SetBool("IsEvading", true);
     }
 
     public override void Update()
@@ -18,7 +20,7 @@ public class S_Evading : CreatureState
     }
     public override void Exit() 
     {
-        base.Exit(); 
+        _animation.SetBool("IsEvading", false);
     }
 
     public void Flee(Vector3 target)

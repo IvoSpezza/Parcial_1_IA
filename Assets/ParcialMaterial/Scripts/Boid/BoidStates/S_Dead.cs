@@ -4,14 +4,16 @@ public class S_Dead : CreatureState
 {
 
     private MS_BoidControlScript _me;
+    private Animator _animation;
 
-    public S_Dead(MS_BoidControlScript me)
+    public S_Dead(MS_BoidControlScript me, Animator animation)
     {
         _me = me;
+        _animation = animation;
     }
     public override void Enter()
     {
-        
+        _animation.SetBool("IsDead", true);
     }
     public override void Update()
     {
@@ -19,6 +21,6 @@ public class S_Dead : CreatureState
     }
     public override void Exit()
     {
-        base.Exit();
+        _animation.SetBool("IsDead", false);
     }
 }

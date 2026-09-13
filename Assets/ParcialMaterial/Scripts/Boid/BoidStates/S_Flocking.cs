@@ -6,18 +6,18 @@ public class S_Flocking : CreatureState
     private MS_BoidControlScript _me;
     private List<MS_BoidControlScript> _agents;
     private FlockingData _flockingData;
-    private float _steering;
-    public S_Flocking(MS_BoidControlScript me, List<MS_BoidControlScript> agents, FlockingData flockingData, float maxSpeed,float steering)
+    private Animator _animation;
+    public S_Flocking(MS_BoidControlScript me, List<MS_BoidControlScript> agents, FlockingData flockingData, float maxSpeed,float steering, Animator animation)
     {
         _me = me;
         _agents = agents;
         _flockingData = flockingData;        
-        _steering = steering;
+        _animation = animation;            
     }
 
     public override void Enter()
     {
-  
+        _animation.SetBool("IsSwiming", true);
     }
 
     public override void Update()
@@ -27,22 +27,35 @@ public class S_Flocking : CreatureState
 
     public override void Exit()
     {
-        
+        _animation.SetBool("IsSwiming", false);
     }    
 
     private Vector3 CalculateAlignment()
     {
         Vector3 dessired = default;
+
+        int deadOnes = 0;
+
         if (_agents.Count == 0)
         {
-            return _me.transform.forward; ;
-        }
-        foreach (MS_BoidControlScript agent in _agents)
-        {
-            dessired += agent._velocity;
+            return Vector3.zero;
         }
 
-        dessired /= _agents.Count;
+        foreach (MS_BoidControlScript agent in _agents)
+        {            
+            if (agent._isAlive)
+            {
+                dessired += agent._velocity;
+            }
+            else
+            {
+                deadOnes++;
+            }
+        }
+
+        if (_agents.Count - deadOnes == 0) return Vector3.zero;
+
+        dessired /= _agents.Count - deadOnes;
                 
         return _me.CalculateSteering(dessired.normalized);
     }

@@ -260,8 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5718af1a901e6bd4e8f56adeafe74824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MS_Bullet
-  _speed: 35
-  _timeAlive: 5
+  _speed: 45
+  _timeAlive: 4
 --- !u!136 &1527417789747092046
 CapsuleCollider:
   m_ObjectHideFlags: 0

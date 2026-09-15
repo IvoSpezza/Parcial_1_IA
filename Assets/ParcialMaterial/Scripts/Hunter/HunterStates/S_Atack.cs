@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class S_Atack : CreatureState
 {
-    private HunterData _hunterData;
-    private StateMachine _hunterMachine;
+    private HunterData _hunterData;    
     private MS_Hunter _me;
     private MS_BoidControlScript _myPrey;
     private AtackDatta _atackData;
@@ -17,17 +16,18 @@ public class S_Atack : CreatureState
     public S_Atack(AtackDatta atackData, MS_Hunter me,StateMachine hunterMachine, HunterData hunterData, Animator animator)
     {
         _hunterData = hunterData;
-        _hunterMachine = hunterMachine;
+        _stateMachine = hunterMachine;
         _atackData = atackData;
         _me = me;
         _animator = animator;
     }
 
     public override void Enter()
-    {        
+    {       
         _canShoot = true;
         _rangedCharge = 0;
-        DeterminePrey();        
+        DeterminePrey();
+        _me.HunterDebDebugger.SetTitle("Hunting", _myPrey.gameObject.name, Color.greenYellow);
     }
 
     private void DeterminePrey()
@@ -36,7 +36,7 @@ public class S_Atack : CreatureState
         {            
             _myPrey = null;
             _animator.SetBool("Aim", false);
-            _hunterMachine.ChangeState(HunterStates.Patrol);
+            _stateMachine.ChangeState(HunterStates.Patrol);
             return;
         }
 
@@ -69,14 +69,16 @@ public class S_Atack : CreatureState
         if (distanceToPrey <= _atackData._mPr)
         {
             WayOfKilling = KillitMelee;
+            
         }
         else if (distanceToPrey > _atackData._mPr && distanceToPrey <= _atackData._rad)
         {
-            WayOfKilling = KillItRanged;
+            WayOfKilling = KillItRanged;            
         }
     }
     private void KillitMelee() 
     {
+        _me.HunterDebDebugger.selectedDebug("Im gonna killit melee", Color.red);
         _animator.SetBool("Aim", false);
         Pursuit(_myPrey);        
         _me.transform.position += _me._velocity * Time.deltaTime;
@@ -99,6 +101,7 @@ public class S_Atack : CreatureState
 
     private void KillItRanged()
     {
+        _me.HunterDebDebugger.selectedDebug("Im gonna killit Ranged", Color.red);
         _animator.SetBool("Aim", true);
         _me.AplyVelocity(-_me._velocity);
         _me.transform.forward = _me.CalculateSteering(_myPrey.transform.position - _me.transform.position);
@@ -120,7 +123,7 @@ public class S_Atack : CreatureState
             _animator.SetBool("Aim", false);
             _me.Shoot(_me.CalculateFuture(_myPrey));
             _hunterData._canAtack = false;
-            _hunterMachine.ChangeState(HunterStates.Patrol);
+            _stateMachine.ChangeState(HunterStates.Patrol);
         }
     }
     public void Seek(Vector3 target)
@@ -134,9 +137,8 @@ public class S_Atack : CreatureState
         _myPrey.Die();
         _hunterData._deadBoids.Add(_myPrey);
         _hunterData._posiblePreys.Remove(_myPrey);
-        _hunterData._canAtack = false;
-        Debug.Log(_hunterData._canAtack);
-        _hunterMachine.ChangeState(HunterStates.Recolect);
+        _hunterData._canAtack = false;        
+        _stateMachine.ChangeState(HunterStates.Recolect);
     }
     
     public void Pursuit(MS_Creature target)

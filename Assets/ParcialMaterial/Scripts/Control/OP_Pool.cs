@@ -3,14 +3,19 @@ using UnityEngine;
 
 public class OP_Pool
 {
-    private int _maxCount;
+    
     private GameObject _objetToPool;
     private Transform _parent;
     private Queue<GameObject> _pool;
+    private int _maxCount;
     private int _maxGenerated;
+
+    public int _actives { get; private set; }
 
     public OP_Pool(GameObject objectToPoll,Transform parent, int maxGenerated)
     {
+        _actives = 0;
+
         _maxGenerated = maxGenerated;
         _objetToPool = objectToPoll;
         _parent = parent;
@@ -33,6 +38,7 @@ public class OP_Pool
 
     public GameObject Get()
     {
+        _actives++;
         
         if (_pool.Count == 0 && _maxCount < _maxGenerated)
         {
@@ -46,6 +52,8 @@ public class OP_Pool
 
     public void Disable(GameObject gameObject)
     {
+        _actives--;
+
         gameObject.SetActive(false);
         _pool.Enqueue(gameObject);
     }

@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9160240850373608121}
   - component: {fileID: 6826344154763598656}
-  m_Layer: 0
+  - component: {fileID: 6680201092403978014}
+  m_Layer: 6
   m_Name: Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,10 +44,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 119
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -56,6 +57,19 @@ CapsuleCollider:
   m_Height: 9.93
   m_Direction: 1
   m_Center: {x: 0, y: 2.84, z: 0}
+--- !u!114 &6680201092403978014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5892125587559269012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfeebedf104d4724987d766d55702426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MS_trapScript
+  _life: 10
 --- !u!1001 &5655967291292713585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104,6 +118,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: 4575096b402f56d4f902a43e92c7f515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -4683669308469848369, guid: 4575096b402f56d4f902a43e92c7f515, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -116,9 +134,21 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 55ee705acc3e8d24a9abfa46eb200140, type: 2}
+    - target: {fileID: -516098083770646512, guid: 4575096b402f56d4f902a43e92c7f515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -391268320553695201, guid: 4575096b402f56d4f902a43e92c7f515, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4575096b402f56d4f902a43e92c7f515, type: 3}
       propertyPath: m_Name
       value: Trap
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4575096b402f56d4f902a43e92c7f515, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

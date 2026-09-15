@@ -830,19 +830,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3048363186685588440, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: orthographic size
-      value: -36
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 4675414479556343090, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _maxSpeed
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
-      propertyPath: _steering
-      value: 18
+      value: 9.9
       objectReference: {fileID: 0}
     - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: '_patrol._pathPoints.Array.data[0]'

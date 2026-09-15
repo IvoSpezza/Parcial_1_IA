@@ -5,16 +5,19 @@ using UnityEngine;
 //Mono Behabiur para controloar a los boids
 public class MS_BoidControlScript : MS_Creature
 {
-    [SerializeField] private float _minSpeed;
+    [SerializeField] public MS_CreatureDebugger CreatureDebugger;
     [SerializeField] private float _maxSeeDistance;
-    [SerializeField] private FlockingData _dataForFlocking;
 
+    [Header("States Data")]
+    [SerializeField] private FlockingData _dataForFlocking;
+    [SerializeField] private EvadeData _evadeData;
+    [SerializeField] private AtackTrapData _boidTrapData;
+     
     public StateMachine _machine { get; private set; }
 
-    private List<MS_BoidControlScript> _agents;
+    private BoidData _dataForBoid;
     public bool _isAlive { get; private set; }
 
-    public MS_Hunter _enemy { get; private set; }
     private SphereCollider _collision;
 
     private OP_Pool _dadPool;
@@ -28,16 +31,25 @@ public class MS_BoidControlScript : MS_Creature
         _collision.radius = _maxSeeDistance;
 
         _machine = new StateMachine();
-        _agents = new List<MS_BoidControlScript>();
+
+        _dataForBoid = new BoidData();
+        _dataForBoid._nearAgents = new List<MS_BoidControlScript>();
+        _dataForBoid._hunter = new Stack<MS_Hunter>();
+        _dataForBoid._maxSpeed = _maxSpeed;
+        _dataForBoid._steering = _steering;
+        _dataForBoid._nearbyTraps = new List<MS_trapScript>();
 
         Animator animation = GetComponent<Animator>();
 
-        S_Flocking flocking = new S_Flocking(this, _agents, _dataForFlocking, _maxSpeed, _steering, animation);
-        S_Evading evade = new S_Evading(this, _maxSpeed, animation);
+        S_Flocking flocking = new S_Flocking(this,_dataForBoid, _dataForFlocking,_machine, animation);
+        S_Evading evade = new S_Evading(this, _evadeData, _dataForBoid,_machine, animation);
         S_Dead dead = new S_Dead(this,animation);
+        S_AtackTrap trapState = new S_AtackTrap(_boidTrapData,this,_dataForBoid,_machine,animation);
+
         _machine.AddState(flocking, BoidState.Flocking);
         _machine.AddState(evade, BoidState.Evading); 
         _machine.AddState(dead, BoidState.Dead);
+        _machine.AddState(trapState, BoidState.Atacking);
 
         _machine.ChangeState(BoidState.Flocking);
     }
@@ -57,51 +69,56 @@ public class MS_BoidControlScript : MS_Creature
         _machine.MachineUpdate();
         if (_isAlive)
         {
-            _velocity += CalculateSeparation() * _dataForFlocking._separationWeight;
-
-            transform.position += _velocity * Time.deltaTime;
-            transform.forward = _velocity;
+            AplyVelocity(CalculateSeparation() * _dataForFlocking._separationWeight);
             transform.position = Bounds.instance.OutOfBounds(transform.position);
-        }
-
+        }        
     }
 
 
     private void OnTriggerEnter(Collider other)
-    {
+    {        
         if (!_isAlive) return;
+
         if (other.gameObject.TryGetComponent<MS_Hunter>(out MS_Hunter enemy))
         {
-            _enemy = enemy;
-            _machine.ChangeState(BoidState.Evading);
+            _dataForBoid._hunter.Push(enemy);    
+            return;
+        }
+            
+        if(other.gameObject.TryGetComponent<MS_trapScript>(out MS_trapScript trap))
+        {
+            
+            _dataForBoid._nearbyTraps.Add(trap);
+            return;
         }
 
         if (other.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript anotherAgent))
-        {
+        {                     
+            if (!anotherAgent._isAlive) return;            
+            _dataForBoid._nearAgents.Add(anotherAgent);
 
-            if (!anotherAgent._isAlive) return;
-            _agents.Add(anotherAgent);
-
-        }
+        }               
     }
-
+   
     private void OnTriggerExit(Collider other)
     {
         if (!_isAlive) return;
-        if (other.gameObject.TryGetComponent<MS_Hunter>(out MS_Hunter enemy))
+
+        // The hunter is poped by the evade state.
+
+        if (other.TryGetComponent<MS_trapScript>(out MS_trapScript trap))
         {
-            _enemy = null;
-            _machine.ChangeState(BoidState.Flocking);
+            _dataForBoid._nearbyTraps.Remove(trap);
         }
 
         if (other.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript anotherAgent))
         {
             if (!anotherAgent._isAlive) return;
-            _agents.Remove(anotherAgent);
+            _dataForBoid._nearAgents.Remove(anotherAgent);
         }
     }
 
-    private void RandomMovement()
+    public void RandomMovement()
     {
         Vector3 randomDirection = new Vector3(UnityEngine.Random.Range(0, 2) * 2 - 1, 0f, UnityEngine.Random.Range(0, 2) * 2 - 1);
         AplyVelocity(randomDirection.normalized * _maxSpeed);
@@ -112,12 +129,12 @@ public class MS_BoidControlScript : MS_Creature
     {
         Vector3 dessired = default;
         Vector3 ponderatedSep;
-        if (_agents.Count == 0)
+        if (_dataForBoid._nearAgents.Count == 0)
         {
             return dessired;
         }
 
-        foreach (MS_BoidControlScript agent in _agents)
+        foreach (MS_BoidControlScript agent in _dataForBoid._nearAgents)
         {
             if (Vector3.Distance(agent.transform.position, transform.position) <= _dataForFlocking._minEvadeDistance)
             {
@@ -127,7 +144,7 @@ public class MS_BoidControlScript : MS_Creature
             }
         }
         dessired.y = 0;
-        dessired /= _agents.Count;
+        dessired /= _dataForBoid._nearAgents.Count;
 
         if (dessired.sqrMagnitude < 0.001f)
         {
@@ -148,15 +165,28 @@ public class MS_BoidControlScript : MS_Creature
     {
         OnBodyRecolected?.Invoke();
         _dadPool.Disable(this.gameObject);
+        CreatureDebugger.gameObject.SetActive(false);
     }
 
 
     private void OnEnable()
     {
+        _machine.ChangeState(BoidState.Flocking);
         RandomMovement();
         _isAlive = true;
+        CreatureDebugger.gameObject.SetActive(true);
+
     }
 
+}
+
+public class BoidData
+{
+    public List<MS_BoidControlScript> _nearAgents;
+    public List<MS_trapScript> _nearbyTraps;
+    public Stack<MS_Hunter> _hunter;
+    public float _maxSpeed;
+    public float _steering;
 }
 
 public enum BoidState

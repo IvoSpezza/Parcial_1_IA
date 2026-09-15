@@ -13,29 +13,37 @@ public class S_Patrol : CreatureState
 
     private float _actualTime;
     private HunterData _hunterData;
-    private StateMachine _hunterMachine;
 
-    private Animator _animator;
-    
+    private OP_Pool _trapsPool;
+    private float _trapTimer;
 
     public S_Patrol(PatrolData data, MS_Hunter me, StateMachine hunterMachine, HunterData hunterData, Animator animator)
     {
         _data = data;
         _me = me;
-        _hunterMachine = hunterMachine;        
+        _stateMachine = hunterMachine;        
         _hunterData = hunterData;
         _animator = animator;
+
+        _trapsPool = new OP_Pool(_data._trap, null, _data._maxTraps);
+
+        for(int i = 0; i < _data._maxTraps; i++)
+        {
+            MS_trapScript trap = _trapsPool.CreateObject().GetComponent<MS_trapScript>();
+            trap.SetPool(_trapsPool);
+        }
     }
 
     public override void Enter()
     {
+        
         _animator.SetBool("Patrol", true);
-                
-        Debug.Log(_hunterData._canAtack);
-                
+                  
         _loopCompleted = false;
         _orientation = Random.Range(0, 2);
         _actualMetod = (PatrolMetod)_orientation;
+
+        _me.HunterDebDebugger.SetTitle("Patrol",""+_actualMetod, Color.green);
 
         _orientation = Random.Range(0, 2);
         _orientation = _orientation * 2 - 1;
@@ -47,15 +55,28 @@ public class S_Patrol : CreatureState
     {
         Patrol();
         _actualTime += Time.deltaTime;
+        _trapTimer += Time.deltaTime;
         _me.transform.position += _me._velocity * Time.deltaTime;
         _me.transform.forward = _me._velocity;
 
-        if(_actualTime >= _data._tba)
+
+        if (_trapTimer >= _data._tbt)
         {
-            _hunterData._canAtack = true;
+            _trapTimer = 0;
+            ColocateTrap();
         }
 
-        TryAtack();
+        if (_actualTime >= _data._tba)
+        {
+            _hunterData._canAtack = true;
+            _me.HunterDebDebugger.selectedDebug("COME CLOSE AND I WILL KILL YOU", Color.green);
+        }
+        else
+        {
+            _me.HunterDebDebugger.selectedDebug("rechargin atack in: " + (_data._tba - _actualTime)+"\n" +
+                                                +_trapsPool._actives+" traps actives. Next in: " + (_data._tbt - _trapTimer), Color.green);
+        }
+            TryAtack();
 
     }
 
@@ -68,13 +89,13 @@ public class S_Patrol : CreatureState
     {           
         if (_hunterData._deadBoids.Count > 0)
         {
-            _hunterMachine.ChangeState(HunterStates.Recolect);
+            _stateMachine.ChangeState(HunterStates.Recolect);
             return;
         }
 
         if (_hunterData._canAtack && _hunterData._posiblePreys.Count > 0)
         {
-            _hunterMachine.ChangeState(HunterStates.Hunt);
+            _stateMachine.ChangeState(HunterStates.Hunt);
         }
     }
 
@@ -82,8 +103,8 @@ public class S_Patrol : CreatureState
     {
         float distance = Vector3.Distance(_me.transform.position, Desired());
         if (distance <= _data._minRangeToChange)
-        {
-            
+        {                      
+
             if(_actualMetod == PatrolMetod.Loop)
             {
                 Loop();
@@ -136,6 +157,15 @@ public class S_Patrol : CreatureState
     //Para entender mejor
     private Vector3 Desired() => _data._pathPoints[_actualPoint].position;
 
+    private void ColocateTrap()
+    {
+        if(_trapsPool._actives < _data._maxTraps)
+        {
+            _animator.SetTrigger("Colocation");
+            GameObject trap = _trapsPool.Get();
+            trap.transform.position = _me.transform.position;
+        }
+    }
 
 }
 
@@ -146,6 +176,10 @@ public class PatrolData
     public float _minRangeToChange;
     public float _patrolSpeed;
     public float _tba;
+
+    public int _maxTraps;
+    public float _tbt;
+    public GameObject _trap;
 }
 
 public enum PatrolMetod

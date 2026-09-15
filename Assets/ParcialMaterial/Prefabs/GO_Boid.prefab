@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 290239648331519647}
   - component: {fileID: 1587590603776641538}
   - component: {fileID: 6046032591777769707}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GO_Boid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,10 +29,11 @@ Transform:
   m_GameObject: {fileID: 1302149885179209587}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05314, y: 0, z: -2.65788}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.79, y: 0.79, z: 0.79}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 43794317942997056}
   - {fileID: 3456019874487757541}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48,15 +49,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c2c34333ea0574398df4003dd1281e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MS_BoidControlScript
-  _maxSpeed: 18
-  _steering: 14
-  _minSpeed: 3
+  _maxSpeed: 14
+  _steering: 12
+  CreatureDebugger: {fileID: 8645603099735207747}
   _maxSeeDistance: 16
   _dataForFlocking:
     _separationWeight: 2.3
     _cohesionWeight: 0.74
     _aligmentWeight: 1.19
     _minEvadeDistance: 4
+  _evadeData:
+    _distanceToEvade: 20
+  _boidTrapData:
+    _tba: 0.5
+    _damage: 1
+    _minDistance: 3
+    _distanceToSlow: 200
 --- !u!135 &290239648331519647
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -67,10 +75,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -170,7 +178,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -345,3 +353,96 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2370611db366d014fbed79d3ee3dc4c8, type: 3}
   m_PrefabInstance: {fileID: 1531712880013505353}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9103943452120586033
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3661041770114593983}
+    m_Modifications:
+    - target: {fileID: 697194154565810290, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: _posInY
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 710407073147788476, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2768507388780236912, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849600975907496935, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_Name
+      value: Hud
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849600975907496935, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537741364830587381, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+--- !u!4 &43794317942997056 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9136716117459883889, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+  m_PrefabInstance: {fileID: 9103943452120586033}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8645603099735207747 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 697194154565810290, guid: d7c02f52b520c4e48a16af4e1aa39d49, type: 3}
+  m_PrefabInstance: {fileID: 9103943452120586033}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dad27ff32aa96ff46b218947caa110b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MS_CreatureDebugger

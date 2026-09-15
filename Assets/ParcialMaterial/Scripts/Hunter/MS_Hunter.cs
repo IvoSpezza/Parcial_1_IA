@@ -15,6 +15,8 @@ public class MS_Hunter : MS_Creature
     [SerializeField] private AtackDatta _atack;
     [SerializeField] private RecolectData _recolectData;
 
+    [SerializeField] public MS_CreatureDebugger HunterDebDebugger;
+
     private StateMachine _hunterMachine;
     private HunterData _hunterData;
 
@@ -69,8 +71,7 @@ public class MS_Hunter : MS_Creature
         GameObject boid = other.gameObject.transform.parent.gameObject;
 
         if (boid.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript prey))
-        {
-                     
+        {              
 
             if (!prey._isAlive)
             {

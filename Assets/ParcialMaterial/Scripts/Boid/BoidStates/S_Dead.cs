@@ -13,6 +13,8 @@ public class S_Dead : CreatureState
     }
     public override void Enter()
     {
+        _me.CreatureDebugger.SetTitle("DEAD", "SAD", Color.red);
+        _me.CreatureDebugger.selectedDebug("I'm so sad, my wife will miss me", Color.red);
         _animation.SetBool("IsDead", true);
     }
     public override void Update()
@@ -20,7 +22,9 @@ public class S_Dead : CreatureState
         
     }
     public override void Exit()
-    {
+    {       
         _animation.SetBool("IsDead", false);
     }
+
+    
 }

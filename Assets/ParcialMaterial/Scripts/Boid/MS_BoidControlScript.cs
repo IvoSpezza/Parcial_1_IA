@@ -15,7 +15,7 @@ public class MS_BoidControlScript : MS_Creature
      
     public StateMachine _machine { get; private set; }
 
-    private BoidData _dataForBoid;
+    public BoidData _dataForBoid {  get; private set; }
     public bool _isAlive { get; private set; }
 
     private SphereCollider _collision;
@@ -77,40 +77,17 @@ public class MS_BoidControlScript : MS_Creature
 
     private void OnTriggerEnter(Collider other)
     {        
-        if (!_isAlive) return;
-
-        if (other.gameObject.TryGetComponent<MS_Hunter>(out MS_Hunter enemy))
-        {
-            _dataForBoid._hunter.Push(enemy);    
-            return;
-        }
-            
-        if(other.gameObject.TryGetComponent<MS_trapScript>(out MS_trapScript trap))
-        {
-            
-            _dataForBoid._nearbyTraps.Add(trap);
-            return;
-        }
-
+        if (!_isAlive) return;        
         if (other.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript anotherAgent))
         {                     
             if (!anotherAgent._isAlive) return;            
             _dataForBoid._nearAgents.Add(anotherAgent);
-
         }               
     }
    
     private void OnTriggerExit(Collider other)
     {
-        if (!_isAlive) return;
-
-        // The hunter is poped by the evade state.
-
-        if (other.TryGetComponent<MS_trapScript>(out MS_trapScript trap))
-        {
-            _dataForBoid._nearbyTraps.Remove(trap);
-        }
-
+        if (!_isAlive) return;               
         if (other.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript anotherAgent))
         {
             if (!anotherAgent._isAlive) return;

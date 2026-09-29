@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MS_Hunter : MS_Creature
-{
-    [SerializeField] private float _rangeOfDetection;
-
+{    
     [SerializeField] private Transform _shootingPoint;
     [SerializeField] private int _bulletsAmount;
     [SerializeField] private GameObject _bulletPrefab;
@@ -18,9 +16,7 @@ public class MS_Hunter : MS_Creature
     [SerializeField] public MS_CreatureDebugger HunterDebDebugger;
 
     private StateMachine _hunterMachine;
-    private HunterData _hunterData;
-
-    private SphereCollider _viewDistance;
+    public HunterData _hunterData { get; private set; }
 
     private void Awake()
     {
@@ -34,9 +30,6 @@ public class MS_Hunter : MS_Creature
         _hunterData._canAtack = false;
 
         _bulletsPool = new OP_Pool(_bulletPrefab, transform.parent, _bulletsAmount);
-
-        _viewDistance = GetComponent<SphereCollider>();
-        _viewDistance.radius = _rangeOfDetection;
 
         S_Patrol patrolState = new S_Patrol(_patrol, this, _hunterMachine, _hunterData, animation);
         _hunterMachine.AddState(patrolState, HunterStates.Patrol);
@@ -64,38 +57,7 @@ public class MS_Hunter : MS_Creature
     {
         _hunterMachine.MachineUpdate();
         transform.position = Bounds.instance.OutOfBounds(transform.position);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        GameObject boid = other.gameObject.transform.parent.gameObject;
-
-        if (boid.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript prey))
-        {              
-
-            if (!prey._isAlive)
-            {
-                _hunterData._deadBoids.Add(prey);
-                return;
-            }
-            if(!_hunterData._posiblePreys.Contains(prey))
-            _hunterData._posiblePreys.Add(prey);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        GameObject boid = other.gameObject.transform.parent.gameObject;
-        if (boid.gameObject.TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript prey))
-        {
-            if (!prey._isAlive)
-            {
-                _hunterData._deadBoids.Remove(prey);
-                return;
-            }
-            _hunterData._posiblePreys.Remove(prey);
-        }
-    } 
+    }      
 
     public void Shoot(Vector3 objetibe)
     {

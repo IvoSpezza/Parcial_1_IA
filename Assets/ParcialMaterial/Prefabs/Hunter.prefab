@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 21293434369792149}
   - component: {fileID: 8234203513221494781}
   - component: {fileID: 6626592075951851933}
+  - component: {fileID: 7166458832652473651}
+  - component: {fileID: 3056318216115187711}
   m_Layer: 7
   m_Name: Hunter
   m_TagString: Untagged
@@ -94,7 +96,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MS_Hunter
   _maxSpeed: 18
   _steering: 18
-  _rangeOfDetection: 17
   _shootingPoint: {fileID: 4752425666203049574}
   _bulletsAmount: 2
   _bulletPrefab: {fileID: 7443724961496179969, guid: 5aca629334fa37643967b73614900c40, type: 3}
@@ -121,6 +122,39 @@ MonoBehaviour:
     _minDistance: 4
     _timeToRecolect: 3
   HunterDebDebugger: {fileID: 2656916733025707636}
+--- !u!114 &7166458832652473651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192455753171988928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1641a29789f3b45a83af388f4beaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HunterView
+  _viewRadius: 13.1
+  _eyeHeight: 1.48
+  _viewAngle: 100
+  _targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &3056318216115187711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192455753171988928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce46dc318a3ddf4681dc1eb72af2f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VisionGizmos
 --- !u!1 &4445348227782943249
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +183,7 @@ Transform:
   m_GameObject: {fileID: 4445348227782943249}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.61, y: 36.24, z: 9.04}
+  m_LocalPosition: {x: -0.61, y: 36.24, z: 9.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -190,7 +224,7 @@ Camera:
   far clip plane: 1000.3
   field of view: 60
   orthographic: 1
-  orthographic size: -36
+  orthographic size: 35
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -568,7 +602,7 @@ PrefabInstance:
     - target: {fileID: 7809806857594839633, guid: 4e5c06e0df1b5a64fa37fd5bfeadb3d6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 55ee705acc3e8d24a9abfa46eb200140, type: 2}
+      objectReference: {fileID: 2100000, guid: 4873ca01c44ab41449f35939f5ac8854, type: 2}
     - target: {fileID: 7923872140425857968, guid: 4e5c06e0df1b5a64fa37fd5bfeadb3d6, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -576,7 +610,7 @@ PrefabInstance:
     - target: {fileID: 8417361359673230750, guid: 4e5c06e0df1b5a64fa37fd5bfeadb3d6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 4cc731ab6482cdd42bc64b7865802c6a, type: 2}
+      objectReference: {fileID: 2100000, guid: 1b5415df5517c9d43afce9e0d15e753a, type: 2}
     - target: {fileID: 8933598078496190650, guid: 4e5c06e0df1b5a64fa37fd5bfeadb3d6, type: 3}
       propertyPath: m_Layer
       value: 6

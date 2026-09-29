@@ -22,7 +22,7 @@ public class MS_Creature : MonoBehaviour
 
         return Vector3.ClampMagnitude(steering, _steering * Time.deltaTime);
     }
-
+    //permite calcular el steering pero con una velocidad distinta a la base de la creatura
     public Vector3 CalculateSteering(Vector3 desired, float otherSpeed)
     {
         desired *= otherSpeed;

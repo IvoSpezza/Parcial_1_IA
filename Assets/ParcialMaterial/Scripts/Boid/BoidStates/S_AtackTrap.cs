@@ -107,7 +107,8 @@ public class S_AtackTrap : CreatureState
 
     public override void Exit()
     {
-        _animator.SetBool("IsAtacking", false);                
+        _animator.SetBool("IsAtacking", false);
+        _me.RandomMovement();
         _actualTrap = null;
     }
         

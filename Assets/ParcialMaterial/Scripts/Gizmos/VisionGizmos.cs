@@ -4,6 +4,7 @@ using static UnityEngine.GraphicsBuffer;
 public class VisionGizmos : MonoBehaviour
 {
     private FieldOfView _sensor;
+    private MS_Creature _creature;
 
     private Vector3 DirFromAngle(float angleDegrees)
     {
@@ -16,6 +17,9 @@ public class VisionGizmos : MonoBehaviour
         if (_sensor == null) _sensor = GetComponent<FieldOfView>();
         if (_sensor == null) return;
 
+        if(_creature == null) _creature = GetComponent<MS_Creature>();
+        if (_creature == null) return;
+
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, _sensor.ViewRadius);
 
@@ -26,15 +30,12 @@ public class VisionGizmos : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + left * _sensor.ViewRadius);
         Gizmos.DrawLine(transform.position, transform.position + right * _sensor.ViewRadius);
 
-        /*
-        if(_sensor.target != null)
-        {
-            Vector3 eyepos = transform.position + Vector3.up * _sensor.EyeHeight;
-            Vector3 endOfSigth = _sensor.target.position;
-            endOfSigth.y = eyepos.y;            
-            Gizmos.color = _sensor._canSeeTarget ? Color.green : Color.gray;
-            Gizmos.DrawLine(eyepos * _sensor.EyeHeight, endOfSigth);
-        }
-        */
+        left = DirFromAngle(-_creature.AvoidAngle * 0.5f);
+        right = DirFromAngle(_creature.AvoidAngle * 0.5f);
+        Vector3 pos = transform.position + Vector3.up * _sensor.EyeHeight;
+        Gizmos.color = Color.pink;
+        Gizmos.DrawLine(pos, pos + left * _creature.AvoidDistance);
+        Gizmos.DrawLine(pos, pos + right * _creature.AvoidDistance);
+        ;
     }
 }

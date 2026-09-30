@@ -23,6 +23,8 @@ public class MS_BoidControlScript : MS_Creature
     private OP_Pool _dadPool;
     public event Action OnBodyRecolected;
 
+    private FieldOfView _fieldOfView;
+
     private void Awake()
     {
         _isAlive = true;
@@ -52,6 +54,9 @@ public class MS_BoidControlScript : MS_Creature
         _machine.AddState(trapState, BoidState.Atacking);
 
         _machine.ChangeState(BoidState.Flocking);
+
+        _fieldOfView = GetComponent<FieldOfView>();
+        
     }
 
     private void Start()
@@ -69,6 +74,7 @@ public class MS_BoidControlScript : MS_Creature
         _machine.MachineUpdate();
         if (_isAlive)
         {
+            AvoidObstacles(_fieldOfView.EyeHeight,_fieldOfView.ObstacleMask);
             AplyVelocity(CalculateSeparation() * _dataForFlocking._separationWeight);
             transform.position = Bounds.instance.OutOfBounds(transform.position);
         }        

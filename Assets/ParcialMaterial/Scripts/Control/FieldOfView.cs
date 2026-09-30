@@ -14,6 +14,9 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] protected LayerMask _targetMask;
     [SerializeField] protected LayerMask _obstacleMask;
 
+    public LayerMask TargetMask => _targetMask;
+    public LayerMask ObstacleMask => _obstacleMask;
+
     private void Awake()
     {
         SphereCollider colision = GetComponent<SphereCollider>();

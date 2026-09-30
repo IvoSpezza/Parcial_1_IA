@@ -53,6 +53,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MS_BoidControlScript
   _maxSpeed: 14
   _steering: 12
+  _avoidDistance: 4.46
+  _avoidAngle: 70.1
+  _avoidWeight: 0.29
   CreatureDebugger: {fileID: 8645603099735207747}
   _maxSeeDistance: 16
   _dataForFlocking:

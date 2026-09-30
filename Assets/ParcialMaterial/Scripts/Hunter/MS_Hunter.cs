@@ -15,11 +15,15 @@ public class MS_Hunter : MS_Creature
 
     [SerializeField] public MS_CreatureDebugger HunterDebDebugger;
 
+    private FieldOfView _fieldOfView;
+
     private StateMachine _hunterMachine;
     public HunterData _hunterData { get; private set; }
 
     private void Awake()
     {
+        _fieldOfView = GetComponent<FieldOfView>();
+
         Animator animation = GetComponent<Animator>();
 
         _hunterMachine = new StateMachine();
@@ -55,6 +59,7 @@ public class MS_Hunter : MS_Creature
 
     private void Update()
     {
+        AvoidObstacles(_fieldOfView.EyeHeight, _fieldOfView.ObstacleMask);
         _hunterMachine.MachineUpdate();
         transform.position = Bounds.instance.OutOfBounds(transform.position);
     }      

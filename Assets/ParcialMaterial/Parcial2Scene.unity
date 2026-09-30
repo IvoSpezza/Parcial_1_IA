@@ -846,6 +846,18 @@ PrefabInstance:
       value: 46.02723
       objectReference: {fileID: 0}
     - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
+      propertyPath: _avoidAngle
+      value: 51.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
+      propertyPath: _avoidWeight
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
+      propertyPath: _avoidDistance
+      value: 6.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626592075951851933, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: _patrol._minRangeToChange
       value: 2
       objectReference: {fileID: 0}
@@ -871,7 +883,7 @@ PrefabInstance:
       objectReference: {fileID: 339155695}
     - target: {fileID: 7166458832652473651, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: _eyeHeight
-      value: 0.4
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 7166458832652473651, guid: 59cb96e6b76c1aa4dbfe6f042218f11f, type: 3}
       propertyPath: _viewAngle

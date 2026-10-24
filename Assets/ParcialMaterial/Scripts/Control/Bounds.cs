@@ -12,6 +12,8 @@ public class Bounds : MonoBehaviour
 
     
 
+    
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -20,14 +22,34 @@ public class Bounds : MonoBehaviour
 
     public Vector3 OutOfBounds(Vector3 position)
     {
-        Vector3 newPosition = position;
+        // 1. Convertimos la posición global del agente a la posición local respecto a este objeto
+        Vector3 localPosition = transform.InverseTransformPoint(position);
 
-        if (position.x > _width / 2) newPosition.x = -_width / 2;
-        if (position.x < -_width / 2) newPosition.x = _width / 2;
-        if (position.z > _height / 2) newPosition.z = -_height / 2;
-        if (position.z < -_height / 2) newPosition.z = _height / 2;
+        float halfWidth = _width / 2f;
+        float halfHeight = _height / 2f;
 
-        return newPosition;
+        // 2. Comprobamos el eje X (izquierda / derecha) y teletransportamos al lado opuesto
+        if (localPosition.x > halfWidth)
+        {
+            localPosition.x = -halfWidth;
+        }
+        else if (localPosition.x < -halfWidth)
+        {
+            localPosition.x = halfWidth;
+        }
+
+        // 3. Comprobamos el eje Z (superior / inferior) y teletransportamos al lado opuesto
+        if (localPosition.z > halfHeight)
+        {
+            localPosition.z = -halfHeight;
+        }
+        else if (localPosition.z < -halfHeight)
+        {
+            localPosition.z = halfHeight;
+        }
+
+        // 4. Devolvemos la posición convertida nuevamente a coordenadas globales del mundo
+        return transform.TransformPoint(localPosition);
     }
 
     private void OnDrawGizmos()
@@ -35,7 +57,10 @@ public class Bounds : MonoBehaviour
         if (_drawGizmos)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(transform.position, new Vector3(_width,0,_height));
+            // Dibujamos el cubo usando la posición y rotación actual del transform
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(Vector3.zero, new Vector3(_width, 0, _height));
         }
     }
 }
+

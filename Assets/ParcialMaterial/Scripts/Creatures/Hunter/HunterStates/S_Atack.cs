@@ -36,7 +36,7 @@ public class S_Atack : CreatureState
         {            
             _myPrey = null;
             _animator.SetBool("Aim", false);
-            _stateMachine.ChangeState(HunterStates.Patrol);
+            _stateMachine.ChangeState(HunterStates.Hunting);
             return;
         }
 
@@ -96,6 +96,7 @@ public class S_Atack : CreatureState
         {
             _animator.SetTrigger("Melee");
             MeleAtack();
+            return;
         }
     }
 
@@ -123,7 +124,7 @@ public class S_Atack : CreatureState
             _animator.SetBool("Aim", false);
             _me.Shoot(_me.CalculateFuture(_myPrey));
             _hunterData._canAtack = false;
-            _stateMachine.ChangeState(HunterStates.Patrol);
+            _stateMachine.ChangeState(HunterStates.Hunting);
         }
     }
     public void Seek(Vector3 target)

@@ -7,13 +7,11 @@ public class S_Recolect : CreatureState
     private MS_Hunter _me;
     private RecolectData _data;        
     private HunterData _hunterData;
-    private MS_BoidControlScript _deadBody;
-    private int _points;
+    private MS_BoidControlScript _deadBody;   
     private float _recolecting;
 
     public S_Recolect(RecolectData data, MS_Hunter me, StateMachine hunterMachine, HunterData hunterData,Animator animator)
     {
-        _points = 0;
         _me = me;
         _data = data;
         _animator = animator;
@@ -25,7 +23,7 @@ public class S_Recolect : CreatureState
     {        
         _recolecting = 0;
         DetermineCorpose();
-        _me.HunterDebDebugger.SetTitle("Recolecting", _points+"", Color.deepPink);
+        _me.HunterDebDebugger.SetTitle("Recolecting", _hunterData._actualPoints+"", Color.deepPink);
         _me.HunterDebDebugger.selectedDebug("i see " + _hunterData._deadBoids.Count + " bodies", Color.deepPink);
     }
     private void DetermineCorpose()
@@ -33,7 +31,7 @@ public class S_Recolect : CreatureState
         if (_hunterData._deadBoids.Count == 0)
         {
             _deadBody = null;
-            _stateMachine.ChangeState(HunterStates.Patrol);
+            _stateMachine.ChangeState(HunterStates.Hunting);
             return;
         }
 
@@ -57,7 +55,10 @@ public class S_Recolect : CreatureState
         _me.transform.position += _me._velocity * Time.deltaTime;
         _me.transform.forward = _me._velocity;
 
-        if (_deadBody._isAlive) _stateMachine.ChangeState(HunterStates.Patrol);
+        if (_deadBody._isAlive)
+        {
+            _stateMachine.ChangeState(HunterStates.Hunting);
+        }
 
         if (_me._velocity == Vector3.zero)
         {
@@ -70,11 +71,20 @@ public class S_Recolect : CreatureState
             if (_recolecting >= _data._timeToRecolect)
             {                
                 _animator.SetTrigger("Recolect");
-                _points++;
-                _deadBody.Recolect();                            
-                _stateMachine.ChangeState(HunterStates.Patrol);
-            }
+                _hunterData._actualPoints++;
+                _deadBody.Recolect();
 
+                if (_hunterData._actualPoints >= _data._poitnsToWin)
+                {
+                    _hunterData._maxPointsReached = true;
+                    Debug.Log(_hunterData._maxPointsReached);
+                    _stateMachine.ChangeState(HunterStates.Exit);
+                }
+                else
+                {
+                    _stateMachine.ChangeState(HunterStates.Hunting);
+                }
+            }
         }
     }
     public override void Exit()
@@ -93,4 +103,5 @@ public class RecolectData
     public float _dtss;
     public float _minDistance;
     public float _timeToRecolect;
+    public int _poitnsToWin;    
 }

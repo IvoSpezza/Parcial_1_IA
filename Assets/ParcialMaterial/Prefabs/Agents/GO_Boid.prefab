@@ -51,17 +51,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c2c34333ea0574398df4003dd1281e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MS_BoidControlScript
-  _maxSpeed: 14
+  _maxSpeed: 11
   _steering: 12
   _avoidDistance: 4.46
   _avoidAngle: 70.1
-  _avoidWeight: 0.29
+  _avoidWeight: 1.8
+  _nodeLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   CreatureDebugger: {fileID: 8645603099735207747}
   _maxSeeDistance: 16
   _dataForFlocking:
-    _separationWeight: 2.3
-    _cohesionWeight: 0.74
-    _aligmentWeight: 1.19
+    _separationWeight: 2.43
+    _cohesionWeight: 0.69
+    _aligmentWeight: 1.08
     _minEvadeDistance: 4
   _evadeData:
     _distanceToEvade: 20

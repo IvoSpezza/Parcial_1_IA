@@ -16,16 +16,16 @@ TagManager:
   - Obstacles
   - Trap
   - Node
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Player
+  - Entity
+  - Node
+  - FreeFlor
+  - SafeFlor
+  - HuntFlor
+  - StartFlor
+  - EndFlor
+  - EntityView
   - 
   - 
   - 

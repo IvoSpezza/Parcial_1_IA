@@ -27,8 +27,8 @@ public class VisionGizmos : MonoBehaviour
         Vector3 right = DirFromAngle(_sensor.ViewAngle * 0.5f);
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(transform.position, transform.position + left * _sensor.ViewRadius);
-        Gizmos.DrawLine(transform.position, transform.position + right * _sensor.ViewRadius);
+        Gizmos.DrawLine(transform.position + Vector3.up * _sensor.EyeHeight, transform.position + left * _sensor.ViewRadius + Vector3.up * _sensor.EyeHeight);
+        Gizmos.DrawLine(transform.position + Vector3.up * _sensor.EyeHeight, transform.position + right * _sensor.ViewRadius + Vector3.up * _sensor.EyeHeight);
 
         left = DirFromAngle(-_creature.AvoidAngle * 0.5f);
         right = DirFromAngle(_creature.AvoidAngle * 0.5f);
@@ -37,5 +37,18 @@ public class VisionGizmos : MonoBehaviour
         Gizmos.DrawLine(pos, pos + left * _creature.AvoidDistance);
         Gizmos.DrawLine(pos, pos + right * _creature.AvoidDistance);
         ;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_sensor == null) _sensor = GetComponent<FieldOfView>();
+        if (_sensor == null) return;
+
+        Vector3 left = DirFromAngle(-_sensor.ViewAngle * 0.5f);
+        Vector3 right = DirFromAngle(_sensor.ViewAngle * 0.5f);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position + Vector3.up * _sensor.EyeHeight, transform.position + left * _sensor.ViewRadius + Vector3.up * _sensor.EyeHeight);
+        Gizmos.DrawLine(transform.position + Vector3.up * _sensor.EyeHeight, transform.position + right * _sensor.ViewRadius + Vector3.up * _sensor.EyeHeight);
     }
 }

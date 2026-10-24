@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MS_Creature : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class MS_Creature : MonoBehaviour
     public Vector3 _velocity { get; protected set; }
     public float AvoidDistance => _avoidDistance;
     public float AvoidAngle => _avoidAngle;
+
+    [SerializeField] private LayerMask _nodeLayer; 
 
     public Vector3 CalculateDirection(Vector3 target)
     {
@@ -36,9 +39,15 @@ public class MS_Creature : MonoBehaviour
 
         return Vector3.ClampMagnitude(steering, _steering * Time.deltaTime);
     }
+    public void CustomSpeedSeek(Vector3 target, float speed)
+    {
+        Vector3 desired = CalculateDirection(target);
+        AplyVelocity(CalculateSteering(desired, speed));
+    }
 
     public Vector3 CalculateFuture(MS_Creature target)
     {
+        if (target == null) return Vector3.zero;
         Vector3 direction = target.transform.position - transform.position;
 
         float distance = direction.magnitude;
@@ -47,6 +56,17 @@ public class MS_Creature : MonoBehaviour
 
         return target.transform.position + target._velocity * prediction;
 
+    }
+
+    public Vector3 CalculateFuture(PlayerMovement player)
+    {
+        Vector3 direction = player.transform.position - transform.position;
+
+        float distance = direction.magnitude;
+
+        float prediction = distance / (_maxSpeed + player._velocity.magnitude);
+
+        return player.transform.position + player._velocity * prediction;
     }
 
     public void Arrive(Vector3 target, float minDistance, float maxDistance)
@@ -77,8 +97,7 @@ public class MS_Creature : MonoBehaviour
         Vector3 avoidance = Whiskers(origin, transform.forward,1f,obstacleLayer);
 
         avoidance += Whiskers(origin, Quaternion.Euler(0, _avoidAngle, 0) * transform.forward, 0.5f, obstacleLayer);
-        avoidance += Whiskers(origin, Quaternion.Euler(0, -_avoidAngle, 0) * transform.forward, 0.5f, obstacleLayer);
-        Debug.Log(avoidance);
+        avoidance += Whiskers(origin, Quaternion.Euler(0, -_avoidAngle, 0) * transform.forward, 0.5f, obstacleLayer);       
         AplyVelocity(Vector3.ClampMagnitude(avoidance,_avoidWeight * Time.deltaTime));
     }
 
@@ -103,6 +122,5 @@ public class MS_Creature : MonoBehaviour
         velocity.y = 0;
         _velocity += velocity;
         _velocity = Vector3.ClampMagnitude(_velocity, _maxSpeed);
-    }        
-
+    }    
 }

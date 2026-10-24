@@ -16,13 +16,11 @@ public class BoidView : FieldOfView
         if(!CanSeeTarget(target.transform)) return;
 
         GameObject hunter = target.transform.root.gameObject;
-        Debug.Log(hunter);
-
+        
         if (hunter.TryGetComponent<MS_Hunter>(out MS_Hunter enemy))
         {
             
-            _boidData._hunter.Push(enemy);
-            Debug.Log(_boidData._hunter.Peek());
+            _boidData._hunter.Push(enemy);            
             return;
         }
 

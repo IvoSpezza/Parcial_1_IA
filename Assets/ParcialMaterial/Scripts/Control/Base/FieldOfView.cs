@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
@@ -27,9 +27,8 @@ public class FieldOfView : MonoBehaviour
     
     public float ViewRadius => _viewRadius;
     public float EyeHeight => _eyeHeight;
-    public float ViewAngle => _viewAngle;
-      
-    protected bool IsValidTarget(int layer, LayerMask mask) => (mask.value & (1 << layer)) != 0; 
+    public float ViewAngle => _viewAngle;    
+    
 
     protected bool InViewAngle(Transform target)
     {
@@ -39,33 +38,40 @@ public class FieldOfView : MonoBehaviour
 
     protected bool HasLineOfSight(Transform target)
     {
-        Vector3 eyepos = transform.position + Vector3.up * _eyeHeight;
-        Vector3 endOfSigth = target.position;
-        endOfSigth.y = eyepos.y;
-        Vector3 direction = endOfSigth - eyepos;
+        Vector3 eyeHeigt = Vector3.up * _eyeHeight;
+        Vector3 eyepos = transform.position + eyeHeigt;
+
+        Vector3 extactPos = target.position;
+        Vector3 eyeHeigtPos = target.position + eyeHeigt;
+
+        Vector3 exactDirection = extactPos - eyepos;
+        Vector3 heigthDirection = eyeHeigtPos - eyepos;
 
         if (TryGetComponent<MS_BoidControlScript>(out MS_BoidControlScript prey))
         {
-            Debug.DrawLine(eyepos, endOfSigth, Color.blue, 0.1f);
-        }
-            
+            Debug.DrawLine(eyepos, extactPos, Color.red, 0.1f);
+        }            
 
-        if(Physics.Raycast(eyepos,direction.normalized,out RaycastHit hit, direction.magnitude, _obstacleMask))
+        if(Physics.Raycast(eyepos,exactDirection.normalized,out RaycastHit hit, exactDirection.magnitude, _obstacleMask))           
         {
             return hit.transform == target || hit.transform.IsChildOf(target);
+        }
+        if(Physics.Raycast(eyepos, eyeHeigtPos.normalized, out RaycastHit hHit, exactDirection.magnitude, _obstacleMask))
+        {
+            return hHit.transform == target || hHit.transform.IsChildOf(target);
         }
         return true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!IsValidTarget(other.gameObject.layer,_targetMask)) return;
+        if(!GlobalFunc.IsValidTarget(other.gameObject.layer,_targetMask)) return;
         ValidTargetIn(other);                
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!IsValidTarget(other.gameObject.layer, _targetMask)) return;         
+        if (!GlobalFunc.IsValidTarget(other.gameObject.layer, _targetMask)) return;         
         ValidTargetOut(other);
     }
 
@@ -74,4 +80,9 @@ public class FieldOfView : MonoBehaviour
     protected virtual void ValidTargetOut(Collider target){}
     
     
+}
+
+public static class GlobalFunc
+{
+   public static bool IsValidTarget(int layer, LayerMask mask) => (mask.value & (1 << layer)) != 0; 
 }
